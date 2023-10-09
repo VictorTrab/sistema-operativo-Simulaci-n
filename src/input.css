@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+   .button-login {
+      @apply bg-gradient-to-r from-purple-900 via-indigo-600 to-blue-400 text-white p-2 px-4 w-32 rounded-lg hover:bg-gradient-to-r hover:from-indigo-600 hover:via-blue-400 hover:to-purple-900;
+   }
+   .barra-tareas {
+      @apply absolute bottom-5 w-auto backdrop-blur bg-opacity-30 bg-gray-600 flex justify-center items-center px-4 py-4 rounded-lg border-opacity-10;
+   }
+   .button-barra-tareas {
+      @apply text-white font-bold inline-flex justify-center items-center h-16 w-16 p-2 cursor-pointer bg-opacity-20 bg-gray-300 border border-transparent mx-4 rounded-lg hover:scale-110 hover:border-2 hover:border-white hover:bg-opacity-10 hover:bg-white;
+   }
+   .barra-superior {
+      @apply  absolute top-0 w-full backdrop-blur-md bg-opacity-40 bg-gray-400 flex justify-between items-center text-white;
+   }
+
+}
