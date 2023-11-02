@@ -2,15 +2,39 @@ document.addEventListener("DOMContentLoaded", function (event) {
    const form = document.querySelector("form")
    form.addEventListener("submit", function (e) {
       e.preventDefault()
-      const password = document.querySelector(".password")
-      if (password.value === "123456") {
-         // Si la contraseña es correcta, se redirecciona a la página de escritorio
-         console.log("Contraseña correcta")
-         window.location.href = "/resources/html/escritorio.html"
-      } else {
-         // Si la contraseña es incorrecta, se muestra un mensaje de error
-         alert("Contraseña incorrecta")
-      }
+      const nombre = document.querySelector("#nombre").value
+      const password = document.querySelector("#password").value
+      
+      fetch('http://localhost:8080/api/auth/login' ,{
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/json'
+         },
+         body: JSON.stringify({
+            nombre,
+            password
+         })
+      }).then(res => res.json())
+      .then(data => {
+         console.log(data)
+         Swal.fire(
+            'Hello!',
+            'Welcome ' + data.usuario.nombre + ' to KathOS! ❤️',
+            'success'
+          )
+          setTimeout(() => {
+            location.href = "http://localhost:5501/resources/html/escritorio.html"
+         }, 2000);
+      })
+      .catch(err => {
+         console.log(err)
+         Swal.fire(
+            'Ups something went wrong!',
+            'Check your credentials!',
+            'error'
+          )
+      })
+
    })
 
 })

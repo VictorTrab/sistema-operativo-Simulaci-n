@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;500;700;900&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/86886396f9.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="/resources/js/welcome.js" defer type="module"></script>
 </head>
 
@@ -26,13 +27,13 @@
           <div class="mb-4 text-lg">
             <input
               class="rounded-3xl border-none bg-white bg-opacity-50 px-6 py-2 text-center text-inherit placeholder-slate-200 shadow-lg outline-none backdrop-blur-md"
-              type="text" name="name" placeholder="usuario" />
+              type="text" name="name" placeholder="usuario" value="Dani" id="nombre"/>
           </div>
 
           <div class="mb-4 text-lg">
             <input
               class="password rounded-3xl border-none bg-white  bg-opacity-50 px-6 py-2 text-center text-inherit placeholder-slate-200 shadow-lg outline-none backdrop-blur-md"
-              type="Password" name="name" placeholder="contraseña" />
+              type="Password" name="name" placeholder="contraseña" value="123456" id="password"/>
           </div>
           <div class="mt-8 flex justify-center text-lg text-black">
             <button type="submit" class="button-login">Login</button>
