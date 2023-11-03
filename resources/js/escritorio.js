@@ -25,6 +25,20 @@ document.addEventListener("DOMContentLoaded", function (event) {
         console.log ("Terminal")
         window.location.href = "/resources/html/terminal.html"
     })
+
+    // cuando dé click en calendario, quita el hidden de calendario
+    document.querySelector('#calendar').addEventListener('click', function () {
+        let calendario = document.querySelector('.calendario')
+        calendario.classList.remove('hidden')
+    })
+
+    document.querySelector('.cerrar-cal').addEventListener('click', function () {
+        let calendario = document.querySelector('.calendario')
+        calendario.classList.add('hidden')
+    })
+
+    
+
     // Se agrega el evento click al botón de cerrar sesión para redireccionar a la página de bienvenida
     document.querySelector('.cerrarSesion').addEventListener('click', function () {
         console.log ("Cerrando sesión")
