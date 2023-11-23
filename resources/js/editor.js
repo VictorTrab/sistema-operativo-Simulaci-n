@@ -89,6 +89,30 @@ function saveFile() {
     const fileName = prompt("Enter a file name:") // Solicitar al usuario un nombre de archivo
     if (fileName) {
         const fileContent = textarea.value // Obtener el contenido del editor
+        console.log({
+            fileName,
+            fileContent
+        })
+
+        //TODO: create a fetch POST
+        const data = {
+            nombre: fileName,
+            extension: "txt",
+            peso: 0,
+            fecha: new Date(),
+            usuario: JSON.parse(localStorage.getItem('usuario')).uid,
+            esCarpeta: false
+        }
+        console.log(data)
+        fetch('http://localhost:8080/api/usuarios/files', {
+            method: 'POST',
+            body: data,
+        }).then(resp => resp.json())
+            .then(resp => {
+                console.log(resp)
+            })
+        
+        console.log(JSON.parse(localStorage.getItem('usuario')))
         savedFiles.push({ name: fileName, content: fileContent }) // Agregar el archivo a la lista de archivos guardados
         updateFileList()
     }
@@ -116,4 +140,12 @@ function openFile(index) {
 // Al cargar la página, actualiza la lista de archivos guardados
 window.addEventListener('load', () => {
     updateFileList()
+
+
+    const form = document.getElementById("form")
+    form.addEventListener("submit", (e) => {
+        e.preventDefault()
+        saveFile()
+
+    })
 })

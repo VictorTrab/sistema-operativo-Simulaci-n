@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             'Welcome ' + data.usuario.nombre + ' to KathOS! ❤️',
             'success'
           )
+          localStorage.setItem('usuario', JSON.stringify(data.usuario))
           setTimeout(() => {
             location.href = "http://localhost:5501/resources/html/escritorio.html"
          }, 2000);
