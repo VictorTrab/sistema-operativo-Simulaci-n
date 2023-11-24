@@ -5,13 +5,14 @@
 }
 
 body {
-    background: #55a0dd;
+    background: #f3d9f6;
     height: 100vh;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 
 section {
     height: 500px;
@@ -126,4 +127,85 @@ h1 {
 
 .archivo:hover {
     background: #40576d;
+}
+
+.buttonSave{
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+    font-weight: 600; /* Puedes ajustar el peso de la fuente según tus preferencias */
+    font-size: 14px; /* Puedes ajustar el tamaño de la fuente según tus preferencias */
+    color: #fff;
+    background: linear-gradient(to bottom right, #6f42c1, #007bff);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.3s ease-in-out;
+}
+
+#open-button{
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+    font-weight: 600; /* Puedes ajustar el peso de la fuente según tus preferencias */
+    font-size: 14px; /* Puedes ajustar el tamaño de la fuente según tus preferencias */
+    color: #fff;
+    background: linear-gradient(to bottom right, #6f42c1, #007bff);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.3s ease-in-out;
+
+}
+
+.button:hover {
+    background: linear-gradient(to bottom left, #6f42c1, #0056b3);
+}
+
+.saved-f{
+    /* flex  */
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    justify-content: flex-start;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600; /* Puedes ajustar el peso de la fuente según tus preferencias */
+    font-size: 14px; /* Puedes ajustar el tamaño de la fuente según tus preferencias */
+    color: #fff;
+    background: linear-gradient(to bottom right, #b3acc0, #d6dadf);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+
+.saved-f:hover {
+    background: linear-gradient(to bottom left, #b3acc0, #d6dadf);
+}
+
+.file-list{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px;
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+    font-weight: 600; /* Puedes ajustar el peso de la fuente según tus preferencias */
+    font-size: 14px; /* Puedes ajustar el tamaño de la fuente según tus preferencias */
+    color: #fff;
+    background: linear-gradient(to bottom right, #b3acc0, #d6dadf);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.botones{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
 }
