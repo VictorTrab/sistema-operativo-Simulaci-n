@@ -85,7 +85,7 @@ window.addEventListener('load', () => {
 const savedFiles = []
 
 // Función para guardar el archivo
-function saveFile() {
+async function saveFile() {
     const fileName = prompt("Enter a file name:") // Solicitar al usuario un nombre de archivo
     if (fileName) {
         const fileContent = textarea.value // Obtener el contenido del editor
@@ -95,22 +95,19 @@ function saveFile() {
         })
 
         //TODO: create a fetch POST
+        console.log("****", localStorage.getItem('usuario'))
         const data = {
             nombre: fileName,
             extension: "txt",
             peso: 0,
             fecha: new Date(),
             usuario: JSON.parse(localStorage.getItem('usuario')).uid,
-            esCarpeta: false
+            esCarpeta: false,
+            informacion: fileContent
         }
         console.log(data)
-        fetch('http://localhost:8080/api/usuarios/files', {
-            method: 'POST',
-            body: data,
-        }).then(resp => resp.json())
-            .then(resp => {
-                console.log(resp)
-            })
+        const resp = await axios.post('http://localhost:8080/api/usuarios/files', data)
+        console.log(resp)
         
         console.log(JSON.parse(localStorage.getItem('usuario')))
         savedFiles.push({ name: fileName, content: fileContent }) // Agregar el archivo a la lista de archivos guardados

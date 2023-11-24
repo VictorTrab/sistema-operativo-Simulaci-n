@@ -26,6 +26,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
         window.location.href = "/resources/html/terminal.html"
     })
 
+    document.querySelector(".calculator").addEventListener('click', function () {
+        console.log ("Calculadora")
+        window.location.href = "/resources/html/calculadora.html"
+    })
+
+
     // cuando dé click en calendario, quita el hidden de calendario
     document.querySelector('#calendar').addEventListener('click', function () {
         let calendario = document.querySelector('.calendario')
