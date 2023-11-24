@@ -236,4 +236,6 @@ class CalculadoraCientifica extends CalculadoraBasica {
 
 }
 
+
+
 const calculadora = new CalculadoraCientifica();
