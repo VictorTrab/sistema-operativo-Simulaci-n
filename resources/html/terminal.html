@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;500;700;900&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/86886396f9.js" crossorigin="anonymous"></script>
+    <script src="/resources/js/terminal.js" defer type="module"></script>
 </head>
 
 <body>
@@ -29,9 +30,13 @@
                 </div>
 
             </div>
-            <div class="pl-1 pt-1 h-auto  text-green-200 font-mono text-xs bg-black" id="console">
+            <div class="pl-1 pt-1 h-auto  text-black font-mono text-xs bg-black" id="console">
                 <p class="pb-1">Welcome to your terminal</p>
-                <p class="pb-1">$</p>
+                
+                <form>
+                    <textarea name="" id="terminal"  rows="30" class="w-"></textarea>
+                    <button type="submit">Correr</button>
+                </form>      
             </div>
         </div>
     </div>

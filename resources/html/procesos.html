@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Lista de Procesos</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <script src="/resources/js/procesos.js" defer type="module"></script>
+ 
+
+  <style>
+    body {
+      background-color: #f3f4f6;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th,
+    td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    th {
+      background-color: #f2f4f8;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="text-3xl font-bold mb-4">Lista de Procesos</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>PID</th>
+          <th>Nombre</th>
+          <th>Estado</th>
+          <th>Memoria (MB)</th>
+        </tr>
+      </thead>
+      <tbody id="procesos">
+        <!-- La lista de procesos se insertará aquí dinámicamente desde el servidor -->
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>

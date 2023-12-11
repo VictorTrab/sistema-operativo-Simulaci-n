@@ -8,8 +8,11 @@
     <title>Progress Bar | Friendly Coding</title>
     <!-- CSS StyleSheet Link -->
     <link rel="stylesheet" href="../css/style.css">
+
+    <script src="https://kit.fontawesome.com/86886396f9.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Tailwind CSS Link -->
-    <!-- <link rel="stylesheet" href="../css/styles.css"> -->
+    <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
 
@@ -60,24 +63,24 @@
         <div class="botones">
             <button id="save-button" class="buttonSave" onclick="saveFile()"><i class="fa-regular fa-floppy-disk"></i> Guardar</button>
             
-            <form id="form">
-                <button id="open-button" type="submit"><i class="fa-solid fa-folder-open"></i> Abrir archivo</button>
-            </form>
+           
         </div>
        
 
         <!-- <button id="save-button" onclick="saveFile()"><i class="fa-solid fa-document"></i> Save</button> -->
     </section>
     <section class="saved-f saved-files">
-        <h2>Saved Files</h2>
-        <ul id="file-list">
-            <!-- Aquí se listarán los archivos guardados -->
-        </ul>
+        <h2 class="bg-blue-300 p-2">Tus archivos</h2>
+       <!-- CREATE A 3 COLUMNS GRID USING TAILWIND CSS -->
+       
+         <div id="listado" class="grid grid-cols-2 gap-4 h-96 overflow-scroll">
+          
+         </div>
    
    </section>
 
+   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="../js/editor.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </body>
 
 </html>

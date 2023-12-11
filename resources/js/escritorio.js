@@ -22,22 +22,22 @@ document.addEventListener("DOMContentLoaded", function (event) {
     setInterval(mostrarHora, 1000) // Ejecuta la función "mostrarHora" cada segundo para mantener actualizada la hora
 
     document.querySelector('.terminal').addEventListener('click', function () {
-        console.log ("Terminal")
+        console.log("Terminal")
         window.location.href = "/resources/html/terminal.html"
     })
 
     document.querySelector(".calculator").addEventListener('click', function () {
-        console.log ("Calculadora")
+        console.log("Calculadora")
         window.location.href = "/resources/html/calculadora.html"
     })
 
     document.querySelector(".ed_texto").addEventListener('click', function () {
-        console.log ("Editor de texto")
+        console.log("Editor de texto")
         window.location.href = "/resources/html/editor.html"
     })
 
     document.querySelector(".camara").addEventListener('click', function () {
-        console.log ("Editor de imágenes")
+        console.log("Editor de imágenes")
         window.location.href = "/resources/html/imagenes.html"
     })
 
@@ -52,12 +52,16 @@ document.addEventListener("DOMContentLoaded", function (event) {
         calendario.classList.add('hidden')
     })
 
-    
-
     // Se agrega el evento click al botón de cerrar sesión para redireccionar a la página de bienvenida
     document.querySelector('.cerrarSesion').addEventListener('click', function () {
-        console.log ("Cerrando sesión")
-       window.location.href = "/index.html"
+        console.log("Cerrando sesión")
+        window.location.href = "/index.html"
+    })
+
+    //evento click para el botón de procesos con metodo get para obtener los procesos y redireccionar a la página de procesos
+    document.querySelector('.procesos').addEventListener('click', function () {
+        console.log("Procesos")
+        window.location.href = "/resources/html/procesos.html"
     })
 
 })

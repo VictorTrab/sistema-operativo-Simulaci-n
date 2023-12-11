@@ -1,26 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Gallery</title>
-    <link rel="stylesheet" href="../css/imagenes.css">
-</head>
-<body>
-    <div class="ful-img" id="fulImgBox">
-        <img src="../assets/images/fdo.jpg" id="fulImg" alt="">
-        <span onclick="closeImg()">X</span>
-    </div>
 
-    <div class="img-gallery">
-        <img src="../assets/images/paisaje.jpg" onclick="openFulImg(this.src)" alt="">
-        <img src="../assets/images/images.jpg" onclick="openFulImg(this.src)" alt="">
-        <img src="../assets/images/otra.jpg" onclick="openFulImg(this.src)" alt="">
-        <img src="../assets/images/a.jpg" onclick="openFulImg(this.src)" alt="">
-        <img src="../assets/images/b.jpg" onclick="openFulImg(this.src)" alt="">
-        <img src="../assets/images/c.jpg" onclick="openFulImg(this.src)" alt="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Visor de Imágenes</title>
+  <link rel="stylesheet" href="/resources/css/styles.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;500;700;900&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/86886396f9.js" crossorigin="anonymous"></script>
+  <script src="/resources/js/gallery.js" defer type="module"></script>
+  <style>
+    #image-gallery {
+        position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center; 
+      justify-content: center; 
+      height: 70vh; 
+    }
+
+    #image-gallery img {
+      max-width: 100%;
+      max-height: 70vh;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .arrow-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 24px;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+
+    #prev-button {
+      left: 10px;
+    }
+
+    #next-button {
+      right: 10px;
+    }
+    .contenedor{
+      background-image:url('/resources/assets/images/fdo.jpg');
+    }
+  </style>
+</head>
+
+<body>
+  <div class="flex h-screen w-full items-center justify-center bg-gray-900 bg-cover bg-no-repeat contenedor">
+    <div class="rounded-xl h-screen w-full bg-gray-800 bg-opacity-50 px-16 py-10 shadow-lg backdrop-blur-md max-sm:px-8 ">
+      <div class="text-white">
+        <div class="mb-8 flex flex-col items-center">
+          <h1 class="mb-2 text-2xl">Visor de Imágenes</h1>
+        </div>
+
+        <div id="image-gallery" class="mb-8">
+        </div>
+
+        <button id="prev-button" class="arrow-button" onclick="showPrevImage()">&#9665;</button>
+        <button id="next-button" class="arrow-button" onclick="showNextImage()">&#9655;</button>
+      </div>
     </div>
-    <script src="../js/imagenes.js"></script>
+  </div>
+
+  <script>
+    let currentImageIndex = 0;
+    const imagesContainer = document.getElementById("image-gallery");
+    const images = [
+      "../assets/images/paisaje.jpg",
+      "../assets/images/images.jpg",
+      "../assets/images/otra.jpg",
+      "../assets/images/a.jpg",
+      "../assets/images/b.jpg",
+      "../assets/images/c.jpg",
+    ];
+
+    function showPrevImage() {
+      if (currentImageIndex > 0) {
+        currentImageIndex--;
+      } else {
+        currentImageIndex = images.length - 1;
+      }
+      showImage();
+    }
+
+    function showNextImage() {
+      if (currentImageIndex < images.length - 1) {
+        currentImageIndex++;
+      } else {
+        currentImageIndex = 0;
+      }
+      showImage();
+    }
+
+    function showImage() {
+      // Limpia el contenedor de imágenes
+      imagesContainer.innerHTML = "";
+
+      // Crea y agrega las imágenes al contenedor
+      images.forEach((image, index) => {
+        const imgElement = document.createElement("img");
+        imgElement.src = image;
+        imgElement.alt = `Imagen ${index + 1}`;
+        imgElement.style.display = index === currentImageIndex ? "block" : "none";
+        imagesContainer.appendChild(imgElement);
+      });
+    }
+
+    // Maneja las teclas de flecha para navegar entre imágenes
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "ArrowRight") {
+        showNextImage();
+      } else if (event.key === "ArrowLeft") {
+        showPrevImage();
+      }
+    });
+
+    // Muestra la primera imagen al cargar la página
+    showImage();
+  </script>
+
 </body>
+
 </html>

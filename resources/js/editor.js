@@ -78,7 +78,69 @@ window.addEventListener('load', () => {
     textarea.value = ""
 })
 
+document.addEventListener('DOMContentLoaded', async () => {
 
+    const archivos = await traerArchivos()
+
+    listarArchivos( archivos )
+
+    // fetch('http://localhost:8080/api/usuarios/procesos')
+    // .then(response => response.json())
+    // .then(data => {
+    //     console.log(data)
+       
+    // })
+
+})
+
+const traerArchivos = async () => {
+    const response = await axios.get('http://localhost:8080/api/usuarios//files/admin')
+    const archivos = response.data.files
+    console.log(archivos)
+
+    return archivos
+}
+
+const listarArchivos = ( archivos = [] ) => {
+    
+    const contenedor = document.getElementById('listado')
+    if(archivos.length === 0){
+        contenedor.innerHTML = `<p class="text-center">No hay archivos</p>`
+        return
+    }
+
+    let html = ''
+    archivos.forEach( ( archivo ) => {
+        const { informacion, esCarpeta, extension, fecha, nombre, peso, uid, usuario } = archivo
+
+        let div = `
+        <div class="bg-blue-400 p-2 h-20 rounded" id="${uid}">
+            <p class="h-6">${nombre}.${extension}</p>
+            <p>${fecha.split(':')[0].split('T')[0]}</p>
+        </div>
+        `
+        html += div
+
+    })
+
+    contenedor.innerHTML = html
+
+    //add event listener to each div
+    archivos.forEach( ( archivo ) => {
+        const { informacion, esCarpeta, extension, fecha, nombre, peso, uid, usuario } = archivo
+
+        document.getElementById(uid).addEventListener('click', () => {
+            console.log("click", uid)
+            Swal.fire({
+                title: `${nombre}.${extension}`,
+                text: informacion,
+                icon: 'info',
+            })
+        })
+    })
+
+
+}
 
 
 // Array para almacenar los archivos guardados
@@ -86,7 +148,7 @@ const savedFiles = []
 
 // Función para guardar el archivo
 async function saveFile() {
-    const fileName = prompt("Enter a file name:") // Solicitar al usuario un nombre de archivo
+    const fileName = prompt('Ingresa el nombre del archivo') // Solicitar al usuario un nombre de archivo
     if (fileName) {
         const fileContent = textarea.value // Obtener el contenido del editor
         console.log({
@@ -94,37 +156,35 @@ async function saveFile() {
             fileContent
         })
 
-        //TODO: create a fetch POST
         console.log("****", localStorage.getItem('usuario'))
         const data = {
             nombre: fileName,
             extension: "txt",
-            peso: 0,
+            peso: Math.random() * 1000,
             fecha: new Date(),
             usuario: JSON.parse(localStorage.getItem('usuario')).uid,
             esCarpeta: false,
             informacion: fileContent
         }
-        console.log(data)
         const resp = await axios.post('http://localhost:8080/api/usuarios/files', data)
-        console.log(resp)
-        
-        console.log(JSON.parse(localStorage.getItem('usuario')))
-        savedFiles.push({ name: fileName, content: fileContent }) // Agregar el archivo a la lista de archivos guardados
-        updateFileList()
+        console.log("Nuevo File: -> ", resp.data)
+
+
+
+        const archivos = await traerArchivos()
+        listarArchivos( archivos )
+
+        Swal.fire(
+            'Archivo guardado!',
+            'Tu archivo se ha guardado exitosamente!',
+            'success'
+        )
+
+        textarea.value = "" // Limpiar el editor
     }
 }
 
-// Función para actualizar la lista de archivos guardados
-function updateFileList() {
-    const fileList = document.getElementById("file-list")
-    fileList.innerHTML = ""
-    savedFiles.forEach((file, index) => {
-        const listItem = document.createElement("li")
-        listItem.innerHTML = `<a href="#" onclick="openFile(${index})">${file.name}</a>`
-        fileList.appendChild(listItem)
-    })
-}
+
 
 // Función para abrir un archivo
 function openFile(index) {
@@ -136,8 +196,6 @@ function openFile(index) {
 
 // Al cargar la página, actualiza la lista de archivos guardados
 window.addEventListener('load', () => {
-    updateFileList()
-
 
     const form = document.getElementById("form")
     form.addEventListener("submit", (e) => {

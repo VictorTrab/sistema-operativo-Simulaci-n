@@ -1,4 +1,10 @@
 document.addEventListener("DOMContentLoaded", function (event) {
+
+   document.querySelector(".crear-usuario").addEventListener('click', function () {
+      window.location.href = 'http://localhost:5501/resources/html/register.html'
+  })
+   
+
    const form = document.querySelector("form")
    form.addEventListener("submit", function (e) {
       e.preventDefault()
