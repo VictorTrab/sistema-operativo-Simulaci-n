@@ -24,8 +24,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
       .then(data => {
          console.log(data)
          Swal.fire(
-            'Hello!',
-            'Welcome ' + data.usuario.nombre + ' to KathOS! ❤️',
+            'Hola!',
+            'Bienvenido ' + data.usuario.nombre + ' a Arvik Os! ❤️',
             'success'
           )
           localStorage.setItem('usuario', JSON.stringify(data.usuario))
