@@ -63,9 +63,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
     })
 
     //evento click para el botón de procesos con metodo get para obtener los procesos y redireccionar a la página de procesos
-    document.querySelector('.procesos').addEventListener('click', function () {
-        console.log("Procesos")
-        window.location.href = "/resources/html/procesos.html"
+    document.querySelector('.gestor_tarea').addEventListener('click', function () {
+        console.log("gestor tarea")
+        window.location.href = "/Gestor-Tareas-Proyecto-ED-UPh/index.html"
     })
 
 })
