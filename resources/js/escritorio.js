@@ -40,6 +40,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
         console.log("Editor de imágenes")
         window.location.href = "/resources/html/imagenes.html"
     })
+     document.querySelector(".video").addEventListener('click', function () {
+        console.log("Editor de videos")
+        window.location.href = "/resources/html/videos.html"
+    })
 
     // cuando dé click en calendario, quita el hidden de calendario
     document.querySelector('#calendar').addEventListener('click', function () {
