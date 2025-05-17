@@ -93,9 +93,7 @@
     let isVideoPlaying = true;
     const videosContainer = document.getElementById("video-gallery");
     const videos = [
-      "../assets/videos/video1.mp4",
-      "../assets/videos/video2.mp4",
-      "../assets/videos/video3.mp4",
+      "../assets/videos/Colibri.mp4",
     ];
 
     function showPrevVideo() {
@@ -122,7 +120,7 @@
       const videoElement = document.createElement("video");
       videoElement.src = videos[currentVideoIndex];
       videoElement.type = "video/mp4";
-      videoElement.muted = true;
+      videoElement.muted = false;
       videoElement.loop = true;
       videoElement.addEventListener('click', togglePlayPause); // Agregamos el listener para pausar al hacer clic
       videosContainer.appendChild(videoElement);
