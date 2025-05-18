@@ -65,12 +65,35 @@
   }
 
   .contenedor {
-    background-image: url('/resources/assets/images/fdo.jpg');
+    background-image: url('/resources/assets/images/fondo3.png');
   }
+
+  /* Botón para volver al escritorio */
+    .volver-escritorio {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      z-index: 50;
+      border-radius: 0.5rem;
+      padding: 0.2rem;
+    }
+
+    /* Icono dentro del botón de volver */
+    .volver-escritorio img {
+      width: 45px;
+      height: 45px;
+    }
 </style>
 </head>
 
 <body>
+<!-- Botón para volver al escritorio -->
+  <div class="volver-escritorio">
+    <button onclick="window.location.href='escritorio.html'" title="Volver al escritorio">
+      <img src="/resources/assets/images/F.atras.png" alt="Volver">
+    </button>
+  </div>
+
   <div class="flex h-screen w-full items-center justify-center bg-gray-900 bg-cover bg-no-repeat contenedor">
     <div class="rounded-xl h-screen w-full bg-gray-800 bg-opacity-50 px-16 py-10 shadow-lg backdrop-blur-md max-sm:px-8 ">
       <div class="text-white">

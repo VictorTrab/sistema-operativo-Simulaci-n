@@ -6,8 +6,35 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Gestor de Tareas</title>
+
+    <style>
+    /* Botón para volver al escritorio */
+    .volver-escritorio {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      z-index: 50;
+      border-radius: 0.5rem;
+      padding: 0.2rem;
+    }
+
+    /* Icono dentro del botón de volver */
+    .volver-escritorio img {
+      width: 45px;
+      height: 45px;
+    }
+  </style>
 </head>
+
 <body> 
+    
+  <!-- Botón para volver al escritorio -->
+  <div class="volver-escritorio">
+    <button onclick="window.location.href='/resources/html/escritorio.html'" title="Volver al escritorio">
+      <img src="/resources/assets/images/F.atras.png" alt="Volver">
+    </button>
+  </div>
+  
     <main>
         <h1 class="titles">Gestor de Tareas</h1>
             <form  id="task-form">
