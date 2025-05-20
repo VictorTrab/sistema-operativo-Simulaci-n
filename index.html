@@ -1,43 +1,43 @@
-    <!DOCTYPE html>
-    <html lang="es">
+<!DOCTYPE html>
+<html lang="es">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Bienvenido </title>
-        <link rel="stylesheet" href="./resources/css/styles.css">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;500;700;900&display=swap" rel="stylesheet">
-        <script src="https://kit.fontawesome.com/86886396f9.js" crossorigin="anonymous"></script>
-        <script defer type="module" src="./resources/js/index.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pantalla desbloqueo</title>
+    <link rel="stylesheet" href="./resources/css/styles.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/86886396f9.js" crossorigin="anonymous"></script>
+</head>
 
-    </head>
-
-    <body>
-
-        <div class="bg-cover bg-center h-screen" style="background-image: url('./resources/assets/images/fondologin.png');">
-        
-            <div class="flex items-center ">
-                <img src="./resources/assets/images/probart.png" alt="Logo" class=" w-32 h-32" id="logo">
-                <h1 class="text-white text-4xl font-semibold ">Arvik</h1>
-            </div>
-        
-            <div class="flex justify-center items-center h-72">
-                <div class="flex flex-col items-center justify-center bg-white bg-opacity-50 w-1/2 h-64 px-2 m-8 shadow-md">
-                    <p class="text-purple-900 text-5xl font-semibold mb-8">Bienvenido a Arvik</p>
-                    <button class="button bg-gradient-to-r from-purple-900 via-indigo-600 to-blue-400 text-white p-2 px-4 rounded-lg hover:bg-gradient-to-r hover:from-indigo-600 hover:via-blue-400 hover:to-purple-900">Continue</button>
-                </div>
-            </div>
-        
-            <div class="hora fixed bottom-0 right-0 p-4 text-white rounded-lg  text-8xl"
-                id="horaActual"></div>
+<body id="paginaDesbloqueo">
+    <div class="bg-cover bg-center h-screen" style="background-image: url('./resources/assets/images/fondologin.png');">
+        <div class="flex items-center " style="padding-top: 40px; padding-left: 20px;">
+            <img src="./resources/assets/images/probart.png" alt="Logo" class=" w-29 h-29" id="logo">
+            <h1 class="text-white text-4xl font-semibold ">Arvik</h1>
         </div>
 
+        <div
+            style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white;">
+            <div class="text-8xl" id="horaActual"></div>
+            <div class="text-4xl" id="fechaActual" style="margin-top: 10px;"></div>
+        </div>
+    </div>
+    <div
+        style="position: fixed; bottom: 40px; left: 92.2%; transform: translateX(-50%); text-align: center; color: white;">
+        <button class="px-2">
+            <img src="https://img.icons8.com/ios-filled/20/ffffff/wifi.png" alt="WiFi" class="w-5 h-5">
+        </button>
+        <button class="px-2">
+            <img src="https://img.icons8.com/ios-filled/20/ffffff/speaker.png" alt="Sonido" class="w-5 h-5">
+        </button>
+        <button class="px-2">
+            <img src="https://img.icons8.com/ios-filled/20/ffffff/battery--v1.png" alt="Batería" class="w-5 h-5">
+        </button>
+    </div>
+    <script defer type="module" src="./resources/js/index.js"></script>
+</body>
 
-
-    </body>
-
-    </html>
-
-
+</html>
