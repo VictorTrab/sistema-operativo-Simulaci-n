@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Terminal</title>
     <link rel="stylesheet" href="/resources/css/styles.css">
+    <link rel="stylesheet" href="/resources/css/windows.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;500;700;900&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/86886396f9.js" crossorigin="anonymous"></script>
@@ -33,7 +34,7 @@
 </head>
 
 <body>
-
+<div class="desktop">
   <!-- Botón para volver al escritorio -->
   <div class="volver-escritorio">
     <button onclick="window.location.href='escritorio.html'" title="Volver al escritorio">
@@ -61,6 +62,32 @@
             </div>
         </div>
     </div>
+</div>
+<link rel="import" href="../components/windows.html" onload="loadWindowTemplate()">
+<script src="../js/windows.js"></script>
+<script>
+    // Contenido específico de tu app
+    const appContent = `
+      <h1>Mi Aplicación</h1>
+      <p>Este es el contenido específico de esta app.</p>
+    `;
+    
+    // Crear ventana al cargar
+    window.addEventListener('DOMContentLoaded', () => {
+      createAppWindow('Mi App', appContent, {
+        width: '800px',
+        height: '600px',
+        position: { x: 100, y: 100 }
+      });
+    });
+    
+    // Función para cargar la plantilla (necesario para el import HTML)
+    function loadWindowTemplate() {
+      const link = document.querySelector('link[rel="import"]');
+      const template = link.import.querySelector('#window-template');
+      document.body.appendChild(template);
+    }
+  </script>
 </body>
-
+ <script src="/resources/js/fullscreen.js"></script>
 </html>

@@ -56,6 +56,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
         calendario.classList.add('hidden')
     })
 
+    
+
     // Se agrega el evento click al botón de cerrar sesión para redireccionar a la página de bienvenida
     document.querySelector('.cerrarSesion').addEventListener('click', function () {
         console.log("Cerrando sesión")

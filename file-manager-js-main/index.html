@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,18 +8,19 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css"
     />
+    <!-- Link Picocss y link findIcons -->
     <script
       src="https://kit.fontawesome.com/a41d3240c2.js"
       crossorigin="anonymous"
     ></script>
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/file-manager-js-main/style.css" />
     <script src="/file-manager-js-main/script.js"></script>
   </head>
   <body onload="renderDirectories()">
     <main class="container">
       <nav aria-label="breadcrumb">
         <ul id="directories">
-          <li id="1"><strong onclick="goToDirectory()">root</strong></li>
+          <li id="1"><strong onclick="goToDirectory(event)">root</strong></li>
         </ul>
       </nav>
       <article>
@@ -37,26 +38,8 @@
             <tbody id="files"></tbody>
           </table>
         </figure>
-        <!--footer>
-          <input
-            type="text"
-            placeholder="Archivo o directorio..."
-            id="input"
-            name="input"
-          />
-          <div class="grid">
-            <button class="contrast" onclick="createFile()">
-              Nuevo archivo
-            </button>
-            <button class="contrast" onclick="createDir()">
-              Nuevo directorio
-            </button>
-            <button class="secondary" onclick="removeFileOrDir()">
-              Borrar
-            </button>
-          </div>
-        </footer-->
       </article>
     </main>
+    <script src="/resources/js/fullscreen.js"></script>
   </body>
 </html>

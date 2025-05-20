@@ -32,13 +32,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
     };
     // Event listener para las teclas "Espacio" y "Enter"
     document.addEventListener('keydown', (event) => {
-        if (event.key === ' ' || event.key === 'Enter') {
+        if (event.key === 'Enter') {
             redirigirALogin();
         }
     });
 
     // Event listener para el clic en cualquier parte del documento
-    document.addEventListener('click', () => {
-        redirigirALogin();
-    });
+    // document.addEventListener('click', () => {
+    //     redirigirALogin();
+    // });
 })
