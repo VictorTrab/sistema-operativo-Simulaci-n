@@ -177,16 +177,16 @@ function renderDirectories(node = root) {
     // Verifica si el directorio actual no es el directorio raíz
     if (currentDir.name !== 'root') {
       goBack.textContent = '..';
-
+      //Comentado por bug de css
       // Agrega el botón "Atrás" al principio de la lista
-      tr.appendChild(goBack);
+      //tr.appendChild(goBack);
 
       // Agrega un evento al botón "Atrás" para retroceder al directorio anterior
-      goBack.addEventListener('click', () => {
-        console.log(lastDir.name); // Imprime el nombre del directorio anterior en la consola
-        display.innerHTML = ''; // Limpia el área de visualización
-        renderDirectories(lastDir); // Renderiza el contenido del directorio anterior
-      });
+      //goBack.addEventListener('click', () => {
+      //  console.log(lastDir.name); // Imprime el nombre del directorio anterior en la consola
+        //display.innerHTML = ''; // Limpia el área de visualización
+       // renderDirectories(lastDir); // Renderiza el contenido del directorio anterior
+     // });
     }
     display.appendChild(tr); // Agrega la lista al área de visualización
   });
