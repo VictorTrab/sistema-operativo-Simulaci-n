@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Archivos</title>
+    <title>Explorador de Archivos</title>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css"
@@ -17,15 +17,19 @@
     <script src="/file-manager-js-main/script.js"></script>
   </head>
   <body onload="renderDirectories()">
-    <main class="container">
+    <main class="container file-explorer-container">
       <nav aria-label="breadcrumb">
+        <!-- logo-->
+         <div class="logo-container">
+          <img src="/resources/assets/images/probart.png" alt="Logo del sistema"class="system-logo">
+        </div>
         <ul id="directories">
           <li id="1"><strong onclick="goToDirectory(event)">root</strong></li>
         </ul>
       </nav>
       <article>
         <figure id="view">
-          <i class="fa-solid fa-bars" style="float: right;"></i>
+          <i class="fa-solid fa-bars" style="float: right"></i>
           <table>
             <thead>
               <tr>
