@@ -10,7 +10,8 @@ html, body {
 }
 
 body {
-	background-color: #8F7F00;
+	background: #6a00b8;
+	background: radial-gradient(circle, rgba(141, 55, 229, 1) 0%, rgba(88, 0, 139, 1) 100%);
 	display: flex;
 	align-items: flex-start;
 	justify-content: center;
@@ -31,7 +32,7 @@ body {
 	font-size: 24px;
 	font-weight: bold;
 	text-shadow: 1px 1px 1px #BBB;
-	color: yellow;
+	color: rgb(255, 255, 255);
 	background: linear-gradient(#777, #222);
 	display: flex;
 	align-items: center;
@@ -59,11 +60,11 @@ body {
 }
 
 .nivel {
-	color: lightgreen;
+	color: rgb(255, 255, 255);
 }
 
 .vidas {
-	color: lightblue;
+	color: rgb(255, 255, 255);
 }
 
 /*----CANVAS----------*/
