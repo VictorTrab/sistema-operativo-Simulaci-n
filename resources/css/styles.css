@@ -1639,7 +1639,6 @@ video {
     padding-bottom: 6rem;
   }
 }
-<<<<<<< HEAD
 /* Terminal */
 .from-puro > textarea {
   background-color: #4f46e500 !important;
@@ -1655,5 +1654,3 @@ video {
 .from-puro > textarea:focus {
   outline: none !important;
 }
-=======
->>>>>>> c549666fe2e22d8a4b28682af7d1d497cf9c8f5d
