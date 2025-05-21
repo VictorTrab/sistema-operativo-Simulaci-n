@@ -1,25 +1,57 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap');
-
+/* Nuevo fondo con gradiente */
 body {
   font-family: 'IBM Plex Sans', sans-serif;
+  background: #122154;
+  background: linear-gradient(90deg,rgba(18, 33, 84, 1) 0%, rgba(147, 109, 170, 1) 50%);
+  min-height: 100vh;
+  color: white;
+  margin: 0;
+  padding: 1rem;
 }
-
+/* Ajustes para mantener la legibilidad */
+.container {
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.file-explorer-container {
+  transition: all 0.3s ease;
+}
+/* Ajustes para el breadcrumb */
+nav[aria-label="breadcrumb"] {
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+thead {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+th, td {
+  padding: 12px 15px;
+  color: white;
+}
 li > strong:hover {
   color: rgb(210, 210, 210);
   cursor: pointer;
 }
 
-tbody > tr:hover {
-  filter: brightness(110%);
+tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.2);
   cursor: pointer;
 }
 
 i:hover {
   cursor: pointer;
+  color: #ffffff;
 }
 
 td > i {
   margin-right: 8px;
+  color: #ffffff;
 }
 
 h2,
@@ -46,10 +78,14 @@ hgroup {
   margin-bottom: 0px;
 }
 
+/* Ajustes para la tabla */
 table {
   width: 94%;
   margin-left: 3%;
   margin-right: 3%;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 details {
@@ -62,4 +98,50 @@ details {
   padding: 0;
   cursor: pointer;
   margin: 0;
+}
+/* Ajuste para el icono de menú */
+.fa-bars {
+  color: white;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+}
+/* Estilos para el contenedor del breadcrumb con logo */
+.breadcrumb-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 0.5rem 1rem;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.system-logo {
+  height: 30px; /* Ajusta según el tamaño de tu logo */
+  width: auto;
+  transition: all 0.3s ease;
+}
+
+/* Ajustes para mantener la alineación vertical */
+#directories {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* Ajuste para el breadcrumb existente */
+nav[aria-label="breadcrumb"] {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+/* Efecto hover para el logo */
+.system-logo:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+  cursor: pointer;
 }
