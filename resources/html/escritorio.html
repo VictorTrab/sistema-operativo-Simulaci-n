@@ -1,21 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Daniela Agudelo">
+    <meta name="author" content="Ruben Quiroz">
     <title>Escritorio</title>
     <link rel="stylesheet" href="/resources/css/styles.css">
     <script src="/resources/js/escritorio.js" defer type="module"></script>
 </head>
 
 <body>
-
-    <!-- Main del apartado de escritorio, se crean las barras superior y de tareas, además de los elementos
-    principales que apareceran el escritorio del simulador del s.o -->
-
     <main>
         <div class="bg-cover bg-center h-screen" style="background-image: url('/resources/assets/images/Fondo1.png');">
             <div class="barra-superior">
@@ -27,6 +23,18 @@
                 </div>
                 <div class="botones flex align-center px-2">
                     <span class="hora_actual px-2 text-2xl">00:00</span>
+
+                     <!--Iconos de estado wifi, sonido, bateria -->
+                     <button class="px-2">
+                        <img src="https://img.icons8.com/ios-filled/20/ffffff/wifi.png" alt="WiFi" class="w-5 h-5">
+                    </button>
+                    <button class="px-2">
+                          <img src="https://img.icons8.com/ios-filled/20/ffffff/speaker.png" alt="Sonido" class="w-5 h-5">
+                    </button>
+                    <button class="px-2">
+                        <img src="https://img.icons8.com/ios-filled/20/ffffff/battery--v1.png" alt="Batería" class="w-5 h-5">
+                    </button>
+
                     <button class="px-2">
                         <svg xmlns="http://www.w3.org/2000/svg"
                             class="  icon icon-tabler icon-tabler-user-star" width="28" height="28" viewBox="0 0 24 24"
@@ -40,6 +48,7 @@
                             <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
                         </svg>
                     </button>
+                    
                     <button class="px-2 rounded-none focus:outline-none" id="calendar">
                         <!-- para evitar que al dar click sostenido se redondee el botón de color negro -->
 
@@ -407,7 +416,7 @@
             </div>
 
     </main>
-
+    <script src="/resources/js/fullscreen.js"></script>
 </body>
 
 </html>

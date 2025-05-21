@@ -1,3 +1,5 @@
+// Opciones de agregare Archivos, Crear Carpeta, Eliminar, estan comentadas para poder solucionarlas más adelante
+
 class File {
   constructor(name, content = '') {
     this.name = name;
@@ -173,74 +175,87 @@ function renderDirectories(node = root) {
     tr.appendChild(date);
 
     // Verifica si el directorio actual no es el directorio raíz
-    // if (currentDir.name !== 'root') {
-    //   goBack.textContent = '..';
+    if (currentDir.name !== 'root') {
+      goBack.textContent = '..';
+      //Comentado por bug de css
+      // Agrega el botón "Atrás" al principio de la lista
+      //tr.appendChild(goBack);
 
-    //   // Agrega el botón "Atrás" al principio de la lista
-    //   tr.appendChild(goBack);
-
-    //   // Agrega un evento al botón "Atrás" para retroceder al directorio anterior
-    //   goBack.addEventListener('click', () => {
-    //     console.log(lastDir.name); // Imprime el nombre del directorio anterior en la consola
-    //     display.innerHTML = ''; // Limpia el área de visualización
-    //     renderDirectories(lastDir); // Renderiza el contenido del directorio anterior
-    //   });
-    // }
+      // Agrega un evento al botón "Atrás" para retroceder al directorio anterior
+      //goBack.addEventListener('click', () => {
+      //  console.log(lastDir.name); // Imprime el nombre del directorio anterior en la consola
+        //display.innerHTML = ''; // Limpia el área de visualización
+       // renderDirectories(lastDir); // Renderiza el contenido del directorio anterior
+     // });
+    }
     display.appendChild(tr); // Agrega la lista al área de visualización
   });
 }
 
 // Función para crear un nuevo archivo
-function createFile() {
-  const currentDir = fileManager.findNodeByName(
-    root,
-    document.getElementById('dir').innerHTML
-  );
-  const name = document.getElementById('input').value;
-  if (name === '') return; // Si no se proporciona un nombre, sale de la función
-  fileManager.addFileOrDirectory(currentDir, name, false); // Agrega un nuevo archivo al directorio actual
-  document.getElementById('input').value = '';
-  document.getElementById('files').innerHTML = '';
-  renderDirectories(currentDir); // Renderiza el contenido del directorio actual
-}
+// function createFile() {
+//   const currentDir = fileManager.findNodeByName(
+//     root,
+//     document.getElementById('dir').innerHTML
+//   );
+//   const name = document.getElementById('input').value;
+//   if (name === '') return; // Si no se proporciona un nombre, sale de la función
+//   fileManager.addFileOrDirectory(currentDir, name, false); // Agrega un nuevo archivo al directorio actual
+//   document.getElementById('input').value = '';
+//   document.getElementById('files').innerHTML = '';
+//   renderDirectories(currentDir); // Renderiza el contenido del directorio actual
+// }
+
 
 // Función para crear un nuevo directorio
-function createDir() {
-  const currentDir = fileManager.findNodeByName(
-    root,
-    document.getElementById('dir').innerHTML
-  );
-  const name = document.getElementById('input').value;
-  if (name === '') return; // Si no se proporciona un nombre, sale de la función
-  fileManager.addFileOrDirectory(currentDir, name, true); // Agrega un nuevo directorio al directorio actual
-  document.getElementById('input').value = '';
-  document.getElementById('files').innerHTML = '';
-  renderDirectories(currentDir); // Renderiza el contenido del directorio actual
-}
+// function createDir() {
+//   const currentDir = fileManager.findNodeByName(
+//     root,
+//     document.getElementById('dir').innerHTML
+//   );
+//   const name = document.getElementById('input').value;
+//   if (name === '') return; // Si no se proporciona un nombre, sale de la función
+//   fileManager.addFileOrDirectory(currentDir, name, true); // Agrega un nuevo directorio al directorio actual
+//   document.getElementById('input').value = '';
+//   document.getElementById('files').innerHTML = '';
+//   renderDirectories(currentDir); // Renderiza el contenido del directorio actual
+// }
+
 
 // Función para eliminar un archivo o directorio
-function removeFileOrDir() {
-  const currentDir = fileManager.findNodeByName(
-    root,
-    document.getElementById('dir').innerHTML
-  );
-  const name = document.getElementById('input').value;
-  fileManager.deleteFileOrDirectory(currentDir, name); // Elimina el archivo o directorio del directorio actual
-  document.getElementById('input').value = '';
-  document.getElementById('files').innerHTML = '';
-  renderDirectories(currentDir); // Renderiza el contenido del directorio actual
-}
+// function removeFileOrDir() {
+//   const currentDir = fileManager.findNodeByName(
+//     root,
+//     document.getElementById('dir').innerHTML
+//   );
+//   const name = document.getElementById('input').value;
+//   fileManager.deleteFileOrDirectory(currentDir, name); // Elimina el archivo o directorio del directorio actual
+//   document.getElementById('input').value = '';
+//   document.getElementById('files').innerHTML = '';
+//   renderDirectories(currentDir); // Renderiza el contenido del directorio actual
+// }
 
-function goToDirectory() {
-  const directory = event.target.innerHTML;
-  const pointedDir = fileManager.findNodeByName(root, directory);
+function goToDirectory(event) {
+  // 1. Prevenir comportamiento default y obtener directorio clickeado
+  event.preventDefault();
+  const directoryName = event.target.textContent;
+  const pointedDir = fileManager.findNodeByName(root, directoryName);
 
-  const limit = parseInt(document.getElementById('directories').lastElementChild.id);
-  for (let i = 1; i <= limit; i++) {
-    if (parseInt(document.getElementById('directories').children[i].id) > parseInt(event.target.parentElement.id)) {
-      document.getElementById('directories').children[i].remove();
-    }
+  // 2. Limpiar breadcrumb manteniendo solo el root
+  const directoriesList = document.getElementById('directories');
+  while (directoriesList.children.length > 1) {
+    directoriesList.removeChild(directoriesList.lastChild);
   }
+
+  // 3. Si no es root, agregar el nuevo directorio al breadcrumb
+  if (directoryName !== 'root') {
+    const newCrumb = document.createElement('li');
+    newCrumb.id = '2'; // Asignar ID adecuado (deberías gestionar esto dinámicamente)
+    newCrumb.innerHTML = `<strong onclick="goToDirectory(event)">${directoryName}</strong>`;
+    directoriesList.appendChild(newCrumb);
+  }
+
+  // 4. Renderizar archivos
   document.getElementById('files').innerHTML = '';
   renderDirectories(pointedDir);
 }
