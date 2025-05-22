@@ -1639,3 +1639,18 @@ video {
     padding-bottom: 6rem;
   }
 }
+/* Terminal */
+.from-puro > textarea {
+  background-color: #4f46e500 !important;
+  width: 60%;
+  height: 80vh;
+  border: none !important;
+  box-shadow: none !important;
+  resize: none !important; /* Opcional: desactiva el resize */
+  padding: 0 1rem  !important;
+  caret-color: #4f46e5 !important; /* Color del cursor */
+}
+
+.from-puro > textarea:focus {
+  outline: none !important;
+}
