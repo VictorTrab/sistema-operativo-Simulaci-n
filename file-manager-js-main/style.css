@@ -1,65 +1,25 @@
+/* Importa la fuente desde Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap');
-/* Nuevo fondo con gradiente */
+
+/* ===================== */
+/* VARIABLES GLOBALES    */
+/* ===================== */
+:root {
+  --article-bg: #10181E;
+  --article-border: rgba(255, 255, 255, 0.05);
+  --border-radius: 8px;
+}
+
+/* ===================== */
+/* ESTILO GENERAL        */
+/* ===================== */
 body {
   font-family: 'IBM Plex Sans', sans-serif;
-  background: #122154;
-  background: linear-gradient(90deg,rgba(18, 33, 84, 1) 0%, rgba(147, 109, 170, 1) 50%);
+  background: linear-gradient(90deg, rgba(18, 33, 84, 1) 0%, rgba(147, 109, 170, 1) 50%);
   min-height: 100vh;
   color: white;
   margin: 0;
   padding: 1rem;
-}
-/* Ajustes para mantener la legibilidad */
-.container {
-  background-color: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 10px;
-  padding: 1rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-.file-explorer-container {
-  transition: all 0.3s ease;
-}
-/* Ajustes para el breadcrumb */
-nav[aria-label="breadcrumb"] {
-  background-color: rgba(0, 0, 0, 0.2);
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  margin-bottom: 1rem;
-}
-thead {
-  background-color: rgba(0, 0, 0, 0.2);
-}
-th, td {
-  padding: 12px 15px;
-  color: white;
-}
-li > strong:hover {
-  color: rgb(210, 210, 210);
-  cursor: pointer;
-}
-
-tbody tr:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-  cursor: pointer;
-}
-
-i:hover {
-  cursor: pointer;
-  color: #ffffff;
-}
-
-td > i {
-  margin-right: 8px;
-  color: #ffffff;
-}
-
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin-bottom: 10px;
 }
 
 p {
@@ -70,42 +30,43 @@ footer {
   text-align: center;
 }
 
-article {
-  margin: 0px;
+h2, h3, h4, h5, h6 {
+  margin-bottom: 10px;
+}
+
+h4 {
+  color: white !important;
 }
 
 hgroup {
   margin-bottom: 0px;
 }
 
-/* Ajustes para la tabla */
-table {
-  width: 94%;
-  margin-left: 3%;
-  margin-right: 3%;
+/* ===================== */
+/* CONTENEDORES          */
+/* ===================== */
+.container {
   background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  overflow: hidden;
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-details {
-  align-items: center;
+.file-explorer-container {
+  transition: all 0.3s ease;
 }
 
-.icon-button {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  margin: 0;
-}
-/* Ajuste para el icono de menú */
-.fa-bars {
-  color: white;
-  margin-right: 1rem;
+/* ===================== */
+/* BREADCRUMB Y LOGO     */
+/* ===================== */
+nav[aria-label="breadcrumb"] {
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
   margin-bottom: 1rem;
 }
-/* Estilos para el contenedor del breadcrumb con logo */
+
 .breadcrumb-container {
   display: flex;
   align-items: center;
@@ -119,12 +80,20 @@ details {
 }
 
 .system-logo {
-  height: 30px; /* Ajusta según el tamaño de tu logo */
+  height: 30px;
   width: auto;
   transition: all 0.3s ease;
 }
 
-/* Ajustes para mantener la alineación vertical */
+.system-logo:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+/* ===================== */
+/* DIRECTORIOS (lista)   */
+/* ===================== */
 #directories {
   margin: 0;
   padding: 0;
@@ -132,16 +101,148 @@ details {
   align-items: center;
 }
 
-/* Ajuste para el breadcrumb existente */
-nav[aria-label="breadcrumb"] {
+#directories li strong {
+  color: white !important;
+  font-weight: 600;
+  padding: 2px 6px;
+}
+
+#directories li strong:hover {
+  color: white !important;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ===================== */
+/* TABLAS                */
+/* ===================== */
+table {
+  width: 94%;
+  margin-left: 3%;
+  margin-right: 3%;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border-radius: var(--border-radius);
+  overflow: hidden !important;
+  border-collapse: collapse !important;
+}
+
+thead {
   background-color: rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
+}
+
+tbody tr {
+  border: none;
+  background-color: transparent;
+}
+
+tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+
+th, td {
+  padding: 12px 15px;
+  color: white;
+  border: none;
+}
+
+td > i {
+  margin-right: 8px;
+  color: #ffffff;
+}
+
+/* Reseteo de bordes y espaciado para tablas */
+table, thead, tbody, tr, th, td {
+  border: none !important;
+  border-spacing: 0 !important;
+  border-collapse: collapse !important;
+}
+
+/* ===================== */
+/* ARTÍCULOS             */
+/* ===================== */
+article {
+  background: var(--article-bg) !important;
+  margin: 0;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  color: white !important;
+  border: 1px solid var(--article-border);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.02);
+}
+
+/* Protección contra temas externos */
+body.dark article,
+body.light article,
+.theme-dark article,
+.theme-light article {
+  background: var(--article-bg) !important;
+  color: white !important;
+}
+
+/* ===================== */
+/* CÓDIGO <pre>          */
+/* ===================== */
+pre {
+  background: transparent !important;
+  color: white !important;
+  border-radius: var(--border-radius);
+}
+
+/* ===================== */
+/* BOTONES E ICONOS      */
+/* ===================== */
+.icon-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  margin: 0;
+}
+
+.fa-bars {
+  color: white;
+  margin-right: 1rem;
   margin-bottom: 1rem;
 }
 
-/* Efecto hover para el logo */
-.system-logo:hover {
-  transform: scale(1.05);
-  opacity: 0.9;
+i:hover {
   cursor: pointer;
+  color: #ffffff;
 }
+
+/* ===================== */
+/* DETALLES SEMÁNTICOS   */
+/* ===================== */
+details {
+  align-items: center;
+}
+/* ===================== */
+/* BOTÓN DE REGRESO SOLO CON FLECHA */
+/* ===================== */
+
+.volver-escritorio {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 50;
+}
+
+/* Elimina fondo, borde y padding innecesario */
+.volver-flecha {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: white;
+  font-size: 1.8rem;
+  cursor: pointer;
+    }
+
+/* Opcional: efecto al pasar el mouse */
+.volver-flecha:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
+    }
