@@ -44,6 +44,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
         console.log("Editor de videos")
         window.location.href = "/resources/html/videos.html"
     })
+      document.querySelector(".explorer-files").addEventListener('click', function () {
+        console.log("Explorador de archivos")
+        window.location.href = "/file-manager-js-main/index.html"
+    })
 
     // cuando dé click en calendario, quita el hidden de calendario
     document.querySelector('#calendar').addEventListener('click', function () {

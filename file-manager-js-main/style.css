@@ -219,3 +219,22 @@ i:hover {
 details {
   align-items: center;
 }
+/* ===================== */
+/* BOTON DE REGRESAR   */
+/* ===================== */
+
+ /* Botón para volver al escritorio */
+    .volver-escritorio {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      z-index: 50;
+      border-radius: 0.5rem;
+      padding: 0.2rem;
+    }
+
+    /* Icono dentro del botón de volver */
+    .volver-escritorio img {
+      width: 45px;
+      height: 45px;
+    }
