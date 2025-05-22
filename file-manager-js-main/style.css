@@ -223,11 +223,11 @@ details {
 /* BOTÓN DE REGRESO SOLO CON FLECHA */
 /* ===================== */
 
-    .volver-escritorio {
-      position: absolute;
-      top: 1rem;
-      left: 1rem;
-      z-index: 50;
+.volver-escritorio {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 50;
 }
 
 /* Elimina fondo, borde y padding innecesario */
