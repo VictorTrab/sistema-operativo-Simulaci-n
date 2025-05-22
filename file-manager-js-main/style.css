@@ -219,3 +219,30 @@ i:hover {
 details {
   align-items: center;
 }
+/* ===================== */
+/* BOTÓN DE REGRESO SOLO CON FLECHA */
+/* ===================== */
+
+.volver-escritorio {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 50;
+}
+
+/* Elimina fondo, borde y padding innecesario */
+.volver-flecha {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: white;
+  font-size: 1.8rem;
+  cursor: pointer;
+    }
+
+/* Opcional: efecto al pasar el mouse */
+.volver-flecha:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
+    }
