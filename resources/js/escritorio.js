@@ -1,49 +1,45 @@
-/*
-    @autora: Daniela Agudelo
-    @descripción: Este archivo contiene el código javascript para la página de escritorio
-*/
-
-// Evento principal para saber cuando cargó el html de la página de bienvenida
-// Se usa el evento DOMContentLoaded para que se ejecute cuando el html esté cargado
-document.addEventListener("DOMContentLoaded", function (event) {
+document.addEventListener("DOMContentLoaded", function () {
 
     function mostrarHora() {
-        // Define la función para mostrar la hora
-        let fecha = new Date() // Crea un nuevo objeto de fecha
-        let hora = fecha.getHours() // Obtiene las horas y los minutos de la fecha
+        let fecha = new Date() 
+        let hora = fecha.getHours() 
         let minutos = fecha.getMinutes()
-        let ampm = hora >= 12 ? "pm" : "am" // Define si es de mañana o de tarde
-        hora = hora % 12 // Convierte las horas a un formato de 12 horas
-        hora = hora ? hora : 12 // Si la hora es 0, la convierte a 12
-        minutos = minutos < 10 ? "0" + minutos : minutos // Agrega un cero antes de los minutos si son menores a 10
-        let horaActual = hora + ":" + minutos + " " + ampm // Crea una cadena de texto con la hora actual en formato hh:mm am/pm
-        document.querySelector(".hora_actual").innerHTML = horaActual // Actualiza el contenido del elemento con el ID "horaActual" en la página HTML
+        let ampm = hora >= 12 ? "pm" : "am" 
+        hora = hora % 12 
+        hora = hora ? hora : 12 
+        minutos = minutos < 10 ? "0" + minutos : minutos 
+        let horaActual = hora + ":" + minutos + " " + ampm 
+        document.querySelector(".hora_actual").innerHTML = horaActual 
     }
-    setInterval(mostrarHora, 1000) // Ejecuta la función "mostrarHora" cada segundo para mantener actualizada la hora
+    setInterval(mostrarHora, 1000) 
 
-    document.querySelector('.terminal').addEventListener('click', function () {
-        console.log("Terminal")
-        window.location.href = "/resources/html/terminal.html"
-    })
+    // Configuración de apps (reemplaza los location.href)
+    const apps = {
+        'terminal': { url: '/resources/html/terminal.html', width: 700, height: 500 },
+        'calculator': { url: '/resources/html/calculadora.html', width: 700, height: 500 },
+        'camara': { url: '/resources/html/imagenes.html', width: 800, height: 600 },
+        'video': { url: '/resources/html/videos.html', width: 1000, height: 700 },
+        'editor': { url: '/resources/html/editor.html', width: 900, height: 600 },
+    };
 
-    document.querySelector(".calculator").addEventListener('click', function () {
-        console.log("Calculadora")
-        window.location.href = "/resources/html/calculadora.html"
-    })
+    // Manejador de clics unificado
+    document.querySelectorAll('.button-barra-tareas > button').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const appClass = Array.from(this.classList)
+            .find(c => !c.includes('button-barra-tareas'));
+            
+            if(appClass && apps[appClass]) {
+                windowManager.createWindow({
+                    title: appClass.replace('_', ' '),
+                    url: apps[appClass].url,
+                    width: apps[appClass].width,
+                    height: apps[appClass].height
+                });
+            }
+        });
+    });
 
-    document.querySelector(".ed_texto").addEventListener('click', function () {
-        console.log("Editor de texto")
-        window.location.href = "/resources/html/editor.html"
-    })
-
-    document.querySelector(".camara").addEventListener('click', function () {
-        console.log("Editor de imágenes")
-        window.location.href = "/resources/html/imagenes.html"
-    })
-     document.querySelector(".video").addEventListener('click', function () {
-        console.log("Editor de videos")
-        window.location.href = "/resources/html/videos.html"
-    })
 
     // cuando dé click en calendario, quita el hidden de calendario
     document.querySelector('#calendar').addEventListener('click', function () {
