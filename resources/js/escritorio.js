@@ -40,6 +40,26 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+<<<<<<< HEAD
+=======
+    document.querySelector(".ed_texto").addEventListener('click', function () {
+        console.log("Editor de texto")
+        window.location.href = "/resources/html/editor.html"
+    })
+
+    document.querySelector(".camara").addEventListener('click', function () {
+        console.log("Editor de imágenes")
+        window.location.href = "/resources/html/imagenes.html"
+    })
+     document.querySelector(".video").addEventListener('click', function () {
+        console.log("Editor de videos")
+        window.location.href = "/resources/html/videos.html"
+    })
+      document.querySelector(".explorer-files").addEventListener('click', function () {
+        console.log("Explorador de archivos")
+        window.location.href = "/file-manager-js-main/index.html"
+    })
+>>>>>>> c19fdfee5587e15e553c866de274c6273ab300d6
 
     // cuando dé click en calendario, quita el hidden de calendario
     document.querySelector('#calendar').addEventListener('click', function () {
