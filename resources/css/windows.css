@@ -1,0 +1,82 @@
+/* Ventanas Mobal */
+/* Estilos básicos para las ventanas */
+.window {
+  position: absolute;
+  width: 600px;
+  height: 400px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background: white;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  top: 50px;
+  left: 50px;
+  z-index: 10;
+}
+
+.window-header {
+  padding: 5px 10px;
+  background: #0078d7;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: move;
+  user-select: none;
+}
+
+.window-title {
+  font-size: 14px;
+}
+
+.window-controls {
+  display: flex;
+  gap: 5px;
+}
+
+.window-btn {
+  width: 22px;
+  height: 22px;
+  border: none;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+}
+
+.window-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.close:hover {
+  background: #e81123;
+}
+
+.window-content {
+  flex: 1;
+  padding: 10px;
+  overflow: auto;
+}
+
+/* Estados de la ventana */
+.window.minimized {
+  height: 40px !important;
+  width: 200px !important;
+  overflow: hidden;
+}
+
+.window.maximized {
+  width: 100% !important;
+  height: 100% !important;
+  top: 0 !important;
+  left: 0 !important;
+}
+
+.window.hidden {
+  display: none;
+}
