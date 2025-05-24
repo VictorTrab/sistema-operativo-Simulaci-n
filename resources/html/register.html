@@ -11,38 +11,33 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;500;700;900&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/86886396f9.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="/resources/js/welcome.js" defer type="module"></script>
+    <script src="/resources/js/user.js" defer type="module"></script>
 </head>
-
-<body>
+<body id="userpage">
     <div class="flex h-screen w-full items-center justify-center bg-gray-900 bg-cover bg-no-repeat"
         style="background-image:url('/resources/assets/images/fondoregistro.png')">
         <div class="rounded-xl bg-gray-800 bg-opacity-50 px-16 py-10 shadow-lg backdrop-blur-md max-sm:px-8">
             <div class="text-white">
                 <div class="mb-8 flex flex-col items-center">
                     <img src="/resources/assets/images/logo.png" width="150" alt="" srcset="" />
-                    
                 </div>
-                <form action="#">
+                <form action="#" id="registerForm">
                     <div class="mb-4 text-lg">
                         <input
                             class="rounded-3xl border-none  bg-white bg-opacity-50 px-6 py-2 text-center text-inherit placeholder-slate-200 shadow-lg outline-none backdrop-blur-md"
                             type="text" name="name" placeholder="Nombre de usuario" id="nombre" />
                     </div>
-
                     <div class="mb-4 text-lg">
                         <input
                             class="password rounded-3xl border-none bg-white  bg-opacity-50 px-6 py-2 text-center text-inherit placeholder-slate-200 shadow-lg outline-none backdrop-blur-md"
                             type="password" name="password" placeholder="Contraseña" id="password" />
                     </div>
-
                     <div class="mb-4 text-lg">
                         <input
                             class="password rounded-3xl border-none bg-white  bg-opacity-50 px-6 py-2 text-center text-inherit placeholder-slate-200 shadow-lg outline-none backdrop-blur-md"
                             type="password" name="confirmPassword" placeholder="Confirmar Contraseña"
                             id="confirmPassword" />
                     </div>
-
                     <div class="mt-8 flex justify-center text-lg text-black">
                         <button type="submit" class="button-login">Crear Usuario</button>
                     </div>
@@ -50,7 +45,6 @@
             </div>
         </div>
     </div>
-
 </body>
  <script src="/resources/js/fullscreen.js"></script>
 </html>

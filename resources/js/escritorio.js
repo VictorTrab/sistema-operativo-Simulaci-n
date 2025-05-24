@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
     })
       document.querySelector(".explorer-files").addEventListener('click', function () {
         console.log("Explorador de archivos")
-        window.location.href = "/file-manager-js-main/index.html"
+        window.location.href = "/resources/app/file-manager-js-main/index.html"
     })
 
     // cuando dé click en calendario, quita el hidden de calendario
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //evento click para el botón de procesos con metodo get para obtener los procesos y redireccionar a la página de procesos
     document.querySelector('.gestor_tarea').addEventListener('click', function () {
         console.log("gestor tarea")
-        window.location.href = "/Gestor-Tareas-Proyecto-ED-UPh/index.html"
+        window.location.href = "/resources/app/Gestor-Tareas-Proyecto-ED-UPh/index.html"
     })
 
 })
