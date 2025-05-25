@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function (){
 
     // Validacion de inicio de sesión 24/05/2025
     // Manejar el envío del formulario
-if (page === 'loginPage') {
+if (page === 'loginpage') {
     document.getElementById('loginForm').addEventListener('submit', function (event) {
         event.preventDefault();
 
@@ -64,7 +64,7 @@ if (page === 'loginPage') {
         if (user.password === password) {
             alert('Inicio de sesión exitoso');
             localStorage.setItem('usuarioActual', JSON.stringify(user)); // Guardar usuario actual
-            window.location.href = '/resources/html/escritorio.html';
+            window.location.href = 'escritorio.html';
         } else {
             alert('Correo electronico o Contraseña incorrecta. Por favor, inténtelo de nuevo.');
         }
