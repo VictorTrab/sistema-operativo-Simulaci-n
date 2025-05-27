@@ -21,8 +21,7 @@
         }
 
         body {
-            background: #223db5;
-            background: radial-gradient(circle,rgba(34, 61, 181, 1) 0%, rgba(67, 5, 117, 1) 100%);
+            background: #560c6d;
             margin: 0;
             overflow: hidden;
             -webkit-perspective: 300;
@@ -76,7 +75,7 @@
         }
 
         .frente i{
-            color: rgb(117, 220, 20);
+            color: rgb(236, 5, 5);
         }
 
         .atras i{
@@ -96,9 +95,9 @@
         let contador = 0
         let contando = false
 
-        var suspender_sonido = new Audio('sonido Start Boxing.ogg');
-        var clic1 = new Audio('sonido click 002.ogg')
-        var clic2 = new Audio('sonido click 004.ogg')
+       var suspender_sonido = new Audio("./Audios/Timbre.mp3");  
+       var clic1 = new Audio("./Audios/click1.mp3");             
+       var clic2 = new Audio("./Audios/click2.mp3");
         suspender()
 
         function temporizar() {
