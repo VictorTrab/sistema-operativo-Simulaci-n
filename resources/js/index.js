@@ -143,26 +143,26 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
 
 // Función para arrastrar ventanas
-// function makeDraggable(win) {
-//   const header = win.querySelector(".window-header");
-//   let isDragging = false;
-//   let offsetX = 0, offsetY = 0;
+function makeDraggable(win) {
+  const header = win.querySelector(".window-header");
+  let isDragging = false;
+  let offsetX = 0, offsetY = 0;
 
-//   header.addEventListener("mousedown", (e) => {
-//     isDragging = true;
-//     offsetX = e.clientX - win.offsetLeft;
-//     offsetY = e.clientY - win.offsetTop;
-//     win.style.zIndex = Date.now();
-//   });
+  header.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    offsetX = e.clientX - win.offsetLeft;
+    offsetY = e.clientY - win.offsetTop;
+    win.style.zIndex = Date.now();
+  });
 
-//   document.addEventListener("mousemove", (e) => {
-//     if (isDragging) {
-//       win.style.left = ${e.clientX - offsetX}px;
-//       win.style.top = ${e.clientY - offsetY}px;
-//     }
-//   });
+  document.addEventListener("mousemove", (e) => {
+    if (isDragging) {
+      win.style.left = ${e.clientX - offsetX}px;
+      win.style.top = ${e.clientY - offsetY}px;
+    }
+  });
 
-//   document.addEventListener("mouseup", () => {
-//     isDragging = false;
-//   });
-// }
+  document.addEventListener("mouseup", () => {
+    isDragging = false;
+  });
+}
