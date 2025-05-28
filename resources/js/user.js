@@ -21,12 +21,6 @@
 
 document.addEventListener('DOMContentLoaded', function (){
     const page = document.body.id;
-
-    // Programar la página de incion de seción. 24/05/2025
-    
-
-
-    // Programar la página de registro 24/05/2025
       if (page === 'registerPage') {
       document.getElementById('registerForm').addEventListener('submit', function (event) {
           event.preventDefault();
@@ -44,10 +38,9 @@ document.addEventListener('DOMContentLoaded', function (){
       });
   }
 
-    // Validacion de inicio de sesión 24/05/2025
     // Manejar el envío del formulario
-if (page === 'loginpage') {
-    document.getElementById('loginForm').addEventListener('submit', function (event) {
+     if (page === 'loginpage') {
+       document.getElementById('loginForm').addEventListener('submit', function (event) {
         event.preventDefault();
 
         let nombre = document.getElementById('nombre').value;

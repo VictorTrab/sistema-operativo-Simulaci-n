@@ -96,8 +96,6 @@
                 </div>
             </div>
         </div>
-
-        
 <!-- Aquí va el calendario -->
 <div class="calendario w-8/12 fixed top-0 right-0 bg-opacity-50 bg-transparent hidden">
     <link rel="dns-prefetch" href="//unpkg.com" />
@@ -162,9 +160,9 @@
                     </div>
                 </template>
             </div>
-
             <!-- Modal -->
-            <div x-show.transition.opacity="openEventModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+             <!-- Calendario -->
+             <div x-show.transition.opacity="openEventModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
                 <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
                     <h2 class="text-2xl font-semibold text-purple-700 mb-4">Detalles del Evento</h2>
 
@@ -173,129 +171,20 @@
 
                     <label class="block mb-2 text-sm font-medium text-gray-700">Fecha</label>
                     <input x-model="formatted_event_date" class="w-full mb-4 p-2 border rounded bg-gray-100" type="text" readonly>
-
                     <div class="text-right">
                         <button @click="openEventModal = false" class="bg-gray-300 px-4 py-2 rounded mr-2">Cancelar</button>
                         <button @click="addEvent()" class="bg-purple-700 text-white px-4 py-2 rounded">Guardar</button>
                     </div>
                 </div>
-            </div>
+            </div>  
+            <!-- Crear ventanas Mobales para diferentes App -->
             <!-- /Modal -->
         </div>
     </div>
-
-     <!-- /funciones del calendario-->
-    <script>
-        const MONTH_NAMES = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-        const DAYS = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
-
-        function app() {
-            return {
-                month: '',
-                year: '',
-                no_of_days: [],
-                blankdays: [],
-                days: DAYS,
-                events: [],
-                event_title: '',
-                event_date: '',
-                openEventModal: false,
-                editMode: false,
-                editingEventIndex: null,
-
-                get formatted_event_date() {
-                    return this.event_date ? new Date(this.event_date).toLocaleDateString('es-ES', {
-                        weekday: 'long',
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                    }) : '';
-                },
-
-                initDate() {
-                    let today = new Date();
-                    this.month = today.getMonth();
-                    this.year = today.getFullYear();
-                    this.getNoOfDays();
-                    this.loadEvents();
-                },
-
-                isToday(date) {
-                    const today = new Date();
-                    const d = new Date(this.year, this.month, date);
-                    return today.toDateString() === d.toDateString();
-                },
-
-                showEventModal(date) {
-                    this.openEventModal = true;
-                    this.event_date = new Date(this.year, this.month, date).toISOString().split('T')[0]; // formato ISO
-                    this.event_title = '';
-                    this.editMode = false;
-                    this.editingEventIndex = null;
-                },
-
-                addEvent() {
-                    if (!this.event_title) return;
-
-                    if (this.editMode && this.editingEventIndex !== null) {
-                        this.events[this.editingEventIndex].event_title = this.event_title;
-                    } else {
-                        this.events.push({
-                            event_date: this.event_date,
-                            event_title: this.event_title
-                        });
-                    }
-
-                    this.saveEvents();
-                    this.resetModal();
-                },
-
-                removeEvent(event) {
-                    this.events = this.events.filter(e => e !== event);
-                    this.saveEvents();
-                },
-
-                editEvent(event) {
-                    this.event_title = event.event_title;
-                    this.event_date = event.event_date;
-                    this.editMode = true;
-                    this.openEventModal = true;
-                    this.editingEventIndex = this.events.indexOf(event);
-                },
-
-                getNoOfDays() {
-                    let daysInMonth = new Date(this.year, this.month + 1, 0).getDate();
-                    let dayOfWeek = new Date(this.year, this.month).getDay();
-                    this.blankdays = Array.from({ length: dayOfWeek }, (_, i) => i);
-                    this.no_of_days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
-                },
-
-                saveEvents() {
-                    localStorage.setItem('calendar-events', JSON.stringify(this.events));
-                },
-
-                loadEvents() {
-                    const saved = localStorage.getItem('calendar-events');
-                    if (saved) {
-                        this.events = JSON.parse(saved);
-                    }
-                },
-
-                resetModal() {
-                    this.event_title = '';
-                    this.event_date = '';
-                    this.openEventModal = false;
-                    this.editMode = false;
-                    this.editingEventIndex = null;
-                }
-            }
-        }
-    </script>
+</main>
 </body>
-
-    </main>
+<script src="/resources/js/index.js"></script>
 <script src="/resources/js/windows.js"></script>
 <script src="/resources/js/fullscreen.js"></script>
 </body>
-
 </html>
