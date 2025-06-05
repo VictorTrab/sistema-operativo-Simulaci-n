@@ -6,9 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Ruben Quiroz">
     <title>Escritorio</title>
+<!-- link a stylos css -->
     <link rel="stylesheet" href="/resources/css/styles.css">
     <link rel="stylesheet" href="/resources/css/windows.css">
-    <script src="/resources/js/escritorio.js" defer type="module"></script>
+    <link rel="stylesheet" href="/resources/css/template.css">
+    <link rel="dns-prefetch" href="//unpkg.com" />
+    <link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css">
 </head>
 <body>
     <main>
@@ -96,95 +100,109 @@
                 </div>
             </div>
         </div>
-<!-- Aquí va el calendario -->
-<div class="calendario w-8/12 fixed top-0 right-0 bg-opacity-50 bg-transparent hidden">
-    <link rel="dns-prefetch" href="//unpkg.com" />
-    <link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
-    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css">
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer></script>
-    <style>
-        [x-cloak] {
-            display: none;
-        }
-    </style>
-</head>
-<body class="bg-gray-100">
-    <div class="w-full min-h-screen flex justify-end items-start p-8 mt-16">
-        <div class="w-11/12 md:w-8/12 bg-purple-700 bg-opacity-95 rounded-xl shadow-xl p-6" x-data="app()" x-init="[initDate(), getNoOfDays()]" x-cloak>
-            <div class="flex items-center justify-between mb-4 text-white">
-                <div>
-                    <span x-text="MONTH_NAMES[month]" class="text-2xl font-bold"></span>
-                    <span x-text="year" class="ml-2 text-xl"></span>
-                </div>
-                <div class="flex space-x-2 items-center">
-                    <button @click="month--; getNoOfDays()" :disabled="month == 0" class="bg-white text-purple-700 p-2 rounded-full hover:bg-purple-200 disabled:opacity-50">
-                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <!-- calendario -->
+        <div class="calendario w-8/12 fixed top-0 right-0 bg-opacity-50 bg-transparent hidden">
+            <style>
+                [x-cloak] {
+                    display: none;
+                }
+            </style>
+                <div class="w-full min-h-screen flex justify-end items-start p-8 mt-16">
+                    <div class="w-11/12 md:w-8/12 bg-purple-700 bg-opacity-95 rounded-xl shadow-xl p-6" x-data="app()" x-init="[initDate(), getNoOfDays()]" x-cloak>
+                        <div class="flex items-center justify-between mb-4 text-white">
+                            <div>
+                                <span x-text="MONTH_NAMES[month]" class="text-2xl font-bold"></span>
+                                <span x-text="year" class="ml-2 text-xl"></span>
+                            </div>
+                            <div class="flex space-x-2 items-center">
+                                <button @click="month--; getNoOfDays()" :disabled="month == 0" class="bg-white text-purple-700 p-2 rounded-full hover:bg-purple-200 disabled:opacity-50">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                        </svg>
-                    </button>
-                    <button @click="month++; getNoOfDays()" :disabled="month == 11" class="bg-white text-purple-700 p-2 rounded-full hover:bg-purple-200 disabled:opacity-50">
-                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </button>
-                    <button @click="$el.closest('.calendario').classList.add('hidden')" class="text-white text-xl font-bold hover:text-purple-200">✕</button>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-7 text-center text-white font-semibold">
-                <template x-for="(day, index) in DAYS" :key="index">
-                    <div class="py-2" x-text="day"></div>
-                </template>
-            </div>
-
-            <div class="grid grid-cols-7 gap-2 mt-2">
-                <template x-for="blankday in blankdays">
-                    <div></div>
-                </template>
-
-                <template x-for="(date, dateIndex) in no_of_days" :key="dateIndex">
-                    <div class="bg-white rounded-lg p-2 text-purple-700 relative">
-                        <div @click="showEventModal(date)"
-                            class="cursor-pointer hover:bg-purple-100 rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mx-auto"
-                            :class="{ 'bg-purple-700 text-white': isToday(date) }" x-text="date">
+                                    </svg>
+                                </button>
+                                <button @click="month++; getNoOfDays()" :disabled="month == 11" class="bg-white text-purple-700 p-2 rounded-full hover:bg-purple-200 disabled:opacity-50">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+                                <button @click="$el.closest('.calendario').classList.add('hidden')" class="text-white text-xl font-bold hover:text-purple-200">✕</button>
+                            </div>
                         </div>
-                        <template x-for="event in events.filter(e => e.event_date === new Date(year, month, date).toISOString().split('T')[0])">
-                            <div class="mt-1 text-xs px-1 py-0.5 rounded bg-purple-200 text-purple-900 flex justify-between items-center">
-                                <span x-text="event.event_title" class="truncate"></span>
-                                <div class="ml-2">
-                                    <button class="text-xs text-red-500 hover:underline" @click="removeEvent(event)">Eliminar</button>
-                                    <button class="text-xs text-blue-500 hover:underline ml-1" @click="editEvent(event)">Editar</button>
+
+                        <div class="grid grid-cols-7 text-center text-white font-semibold">
+                            <template x-for="(day, index) in DAYS" :key="index">
+                                <div class="py-2" x-text="day"></div>
+                            </template>
+                        </div>
+
+                        <div class="grid grid-cols-7 gap-2 mt-2">
+                            <template x-for="blankday in blankdays">
+                                <div></div>
+                            </template>
+                            <template x-for="(date, dateIndex) in no_of_days" :key="dateIndex">
+                                <div class="bg-white rounded-lg p-2 text-purple-700 relative">
+                                    <div @click="showEventModal(date)"
+                                        class="cursor-pointer hover:bg-purple-100 rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mx-auto"
+                                        :class="{ 'bg-purple-700 text-white': isToday(date) }" x-text="date">
+                                    </div>
+                                    <template x-for="event in events.filter(e => e.event_date === new Date(year, month, date).toISOString().split('T')[0])">
+                                        <div class="mt-1 text-xs px-1 py-0.5 rounded bg-purple-200 text-purple-900 flex justify-between items-center">
+                                            <span x-text="event.event_title" class="truncate"></span>
+                                            <div class="ml-2">
+                                                <button class="text-xs text-red-500 hover:underline" @click="removeEvent(event)">Eliminar</button>
+                                                <button class="text-xs text-blue-500 hover:underline ml-1" @click="editEvent(event)">Editar</button>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </template>
+                        </div>
+                        <!-- Modal -->
+                        <!-- Calendario -->
+                        <div x-show.transition.opacity="openEventModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+                            <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
+                                <h2 class="text-2xl font-semibold text-purple-700 mb-4">Detalles del Evento</h2>
+
+                                <label class="block mb-2 text-sm font-medium text-gray-700">Título del evento</label>
+                                <input x-model="event_title" class="w-full mb-4 p-2 border rounded" type="text">
+
+                                <label class="block mb-2 text-sm font-medium text-gray-700">Fecha</label>
+                                <input x-model="formatted_event_date" class="w-full mb-4 p-2 border rounded bg-gray-100" type="text" readonly>
+                                <div class="text-right">
+                                    <button @click="openEventModal = false" class="bg-gray-300 px-4 py-2 rounded mr-2">Cancelar</button>
+                                    <button @click="addEvent()" class="bg-purple-700 text-white px-4 py-2 rounded">Guardar</button>
                                 </div>
                             </div>
-                        </template>
-                    </div>
-                </template>
+                        </div>  
+                </div>
             </div>
-            <!-- Modal -->
-             <!-- Calendario -->
-             <div x-show.transition.opacity="openEventModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-                <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
-                    <h2 class="text-2xl font-semibold text-purple-700 mb-4">Detalles del Evento</h2>
-
-                    <label class="block mb-2 text-sm font-medium text-gray-700">Título del evento</label>
-                    <input x-model="event_title" class="w-full mb-4 p-2 border rounded" type="text">
-
-                    <label class="block mb-2 text-sm font-medium text-gray-700">Fecha</label>
-                    <input x-model="formatted_event_date" class="w-full mb-4 p-2 border rounded bg-gray-100" type="text" readonly>
-                    <div class="text-right">
-                        <button @click="openEventModal = false" class="bg-gray-300 px-4 py-2 rounded mr-2">Cancelar</button>
-                        <button @click="addEvent()" class="bg-purple-700 text-white px-4 py-2 rounded">Guardar</button>
+        </div>
+        <!-- Crear ventanas Mobales para diferentes App -->
+        <div class="window" id="appWindow">
+            <div class="title-bar" id="titleBar">
+                <div class="title">
+                    <div class="app-icon">📱</div>
+                    <span id="appTitle">Mi Aplicación</span>
+                </div>
+                    <div class="window-controls">
+                        <button class="control-btn minimize-btn" id="minimizeBtn"></button>
+                        <button class="control-btn maximize-btn" id="maximizeBtn"></button>
+                        <button class="control-btn close-btn" id="closeBtn"></button>
                     </div>
                 </div>
-            </div>  
-            <!-- Crear ventanas Mobales para diferentes App -->
-            <!-- /Modal -->
-        </div>
-    </div>
-<<<<<<< HEAD
-
+        
+                <div class="app-content" id="appContent">
+                <!-- AQUÍ VA EL CONTENIDO DE TU APLICACIÓN -->
+  
+                <!-- FIN DEL CONTENIDO DE EJEMPLO -->
+                </div>
+                <div class="resize-handle right"></div>
+                <div class="resize-handle bottom"></div>
+                <div class="resize-handle corner"></div>
+            <button class="restore-btn" id="restoreBtn">↗️</button>
+        </div> 
      <!-- /funciones del calendario-->
-    <script>
+        <script>
         const MONTH_NAMES = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
         const DAYS = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
 
@@ -289,31 +307,26 @@
                 }
             }
         }
-    </script>
+        </script>
     
-    <!-- //mostrar automáticamente un fondo personalizado (wallpaper) -->
-    <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const wallpaper = localStorage.getItem("wallpaper");
-  const bgCover = document.getElementsByClassName("bg-cover")[0];
-  if (wallpaper && bgCover) {
-    bgCover.style.backgroundImage = `url('${wallpaper}')`;
-    bgCover.style.backgroundSize = "cover";
-    bgCover.style.backgroundRepeat = "no-repeat";
-    bgCover.style.backgroundPosition = "center";
-  }
-});
-</script>
-
-</body>
+        <!-- //mostrar automáticamente un fondo personalizado (wallpaper) -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+            const wallpaper = localStorage.getItem("wallpaper");
+            const bgCover = document.getElementsByClassName("bg-cover")[0];
+            if (wallpaper && bgCover) {
+                bgCover.style.backgroundImage = `url('${wallpaper}')`;
+                bgCover.style.backgroundSize = "cover";
+                bgCover.style.backgroundRepeat = "no-repeat";
+                bgCover.style.backgroundPosition = "center";
+            }
+            });
+        </script>
     </main>
-=======
-</main>
-</body>
-<script src="/resources/js/index.js"></script>
->>>>>>> eee70b57962b6a86b95a5a897311dc1654f76cf4
-<script src="/resources/js/windows.js"></script>
-<script src="/resources/js/fullscreen.js"></script>
-<script src="/resources/js/imagenes.js"></script>
+        <script src="/resources/js/index.js"></script>
+        <script src="/resources/js/imagenes.js"></script>
+        <script src="/resources/js/template.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer></script>
+        <script src="/resources/js/escritorio.js" defer type="module"></script>
 </body>
 </html>

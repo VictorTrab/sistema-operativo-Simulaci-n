@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
         calendario.classList.remove('hidden')
     })
 
-    document.querySelector('.cerrar-cal').addEventListener('click', function () {
+    document.querySelector('.cerrarSesion').addEventListener('click', function () {
         let calendario = document.querySelector('.calendario')
         calendario.classList.add('hidden')
     })
@@ -125,8 +125,6 @@ if (uploadInput) {
 
     // Recuperar imagen del fondo guardada en localStorage
   const wallpaper = localStorage.getItem("wallpaper");
-
-  // Si existe, establecerla como fondo del body
   if (wallpaper) {
     document.body.style.backgroundImage = `url('${wallpaper}')`;
     document.body.style.backgroundSize = "cover";
