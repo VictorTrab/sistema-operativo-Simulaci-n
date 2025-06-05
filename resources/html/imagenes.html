@@ -2,28 +2,20 @@
 <html lang="en">
 
 <head>
-  <!-- Configuración general del documento -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>Visor de Imágenes</title>
 
-  <!-- Enlace a estilos personalizados -->
+  <!-- Estilos y fuentes -->
   <link rel="stylesheet" href="/resources/css/styles.css" />
-
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;500;700;900&display=swap" rel="stylesheet" />
-
-  <!-- Font Awesome para íconos -->
   <script src="https://kit.fontawesome.com/86886396f9.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-  <!-- Archivo JS externo (importado como módulo) -->
-  <script src="/resources/js/gallery.js" defer type="module"></script>
-
-  <!-- Estilos CSS internos -->
   <style>
-    /* Estilo del contenedor principal del visor */
+    /* Contenedor principal de la galería */
     #image-gallery {
       position: relative;
       overflow: hidden;
@@ -33,7 +25,6 @@
       height: 70vh;
     }
 
-    /* Imágenes dentro del visor */
     #image-gallery img {
       max-width: 100%;
       max-height: 70vh;
@@ -41,7 +32,7 @@
       margin: 0 auto;
     }
 
-    /* Botones de navegación */
+    /* Flechas de navegación */
     .arrow-button {
       position: absolute;
       top: 50%;
@@ -53,77 +44,181 @@
       cursor: pointer;
     }
 
-    /* Posición del botón izquierdo */
     #prev-button {
       left: 10px;
     }
 
-    /* Posición del botón derecho */
     #next-button {
       right: 10px;
     }
 
-    /* Fondo personalizado usando una imagen */
     .contenedor {
       background-image: url('/resources/assets/images/fondo2.png');
     }
 
-    /* Botón para volver al escritorio */
+    /* Botón de volver al escritorio */
     .volver-escritorio {
       position: absolute;
       top: 1rem;
       left: 1rem;
       z-index: 50;
-      border-radius: 0.5rem;
-      padding: 0.2rem;
     }
 
-    /* Icono dentro del botón de volver */
+    .volver-escritorio button {
+      border: none;
+      background: transparent;
+    }
+
     .volver-escritorio img {
       width: 45px;
       height: 45px;
+    }
+
+    /* Botones de acción (subir, eliminar, fondo) */
+    .botones-extra {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    label.subir,
+    .botones-extra button {
+      padding: 6px 12px;
+      border-radius: 6px;
+      background-color: #4f46e5;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .botones-extra input[type="file"] {
+      display: none;
+    }
+
+    label.subir img,
+    .botones-extra button img {
+      width: 50px;
+      height: 50px;
+    }
+
+    /* Botón eliminar en rojo */
+    .botones-extra button.eliminar {
+      background-color: #dc2626;
+    }
+
+    /* Botón usar como fondo: transparente con borde */
+    .botones-extra button.fondo-transparente {
+      background-color: transparent;
+      border: 1px solid white;
+    }
+
+    /* Modal de confirmación */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background-color: white;
+      color: black;
+      padding: 30px;
+      border-radius: 10px;
+      position: relative;
+      width: 400px;
+      text-align: center;
+    }
+
+    .modal-content button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      border-radius: 6px;
+      background-color: #5544ef;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 2px;
+      right: 5px;
+      background: none;
+      border: none;
+      font-size: 12px;
+      cursor: pointer;
+      color: red;
     }
   </style>
 </head>
 
 <body>
-
-  <!-- Botón para volver al escritorio -->
+  <!-- Botón de volver -->
   <div class="volver-escritorio">
     <button onclick="window.location.href='escritorio.html'" title="Volver al escritorio">
       <img src="/resources/assets/images/F.atras.png" alt="Volver">
     </button>
   </div>
 
-  <!-- Contenedor principal del visor -->
-  <div class="relative flex h-screen w-full items-center justify-center bg-gray-900 bg-cover bg-no-repeat contenedor">
+  <!-- Contenedor general -->
+  <div class="relative flex h-screen w-full items-center justify-center bg-gray-900 contenedor">
     <div class="rounded-xl h-screen w-full bg-gray-800 bg-opacity-50 px-16 py-10 shadow-lg backdrop-blur-md max-sm:px-8">
       <div class="text-white">
-        <!-- Título del visor -->
         <div class="mb-8 flex flex-col items-center">
           <h1 class="mb-2 text-2xl">Visor de Imágenes</h1>
         </div>
 
-        <!-- Contenedor donde se mostrará la imagen actual -->
+        <!-- Galería de imágenes -->
         <div id="image-gallery" class="mb-8"></div>
 
-        <!-- Botones de navegación izquierda y derecha -->
-        <button id="prev-button" class="arrow-button" onclick="showPrevImage()">&#9665;</button>
-        <button id="next-button" class="arrow-button" onclick="showNextImage()">&#9655;</button>
+        <!-- Botones de navegación -->
+        <button id="prev-button" class="arrow-button" onclick="showPrevImage()">◁</button>
+        <button id="next-button" class="arrow-button" onclick="showNextImage()">▷</button>
+
+        <!-- Botones para subir, eliminar, fondo -->
+        <div class="botones-extra">
+          <label class="subir" for="upload-image">
+            <img src="/resources/assets/images/agg_img.png" alt="Agregar Imagen" />
+          </label>
+          <input type="file" id="upload-image" accept="image/*" />
+
+          <button class="eliminar" onclick="confirmDelete()" title="Eliminar Imagen">
+            <img src="/resources/assets/images/eliminar_img.png" alt="Eliminar Imagen" />
+          </button>
+
+          <button class="fondo-transparente" onclick="setAsWallpaper()" title="Usar como Fondo de Pantalla">
+            <img src="/resources/assets/images/Wallpaper.png" alt="Usar como Fondo" />
+          </button>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Script con la lógica de navegación entre imágenes -->
+  <!-- Modal de confirmación -->
+  <div id="deleteModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">X</button>
+      <p>¿Estás seguro de eliminar esta imagen?</p>
+      <button onclick="deleteCurrentImage()">Aceptar</button>
+    </div>
+  </div>
+
+  <!-- Script para funcionalidad -->
   <script>
-    // Índice actual de la imagen mostrada
     let currentImageIndex = 0;
-
-    // Contenedor del visor
     const imagesContainer = document.getElementById("image-gallery");
+    const modal = document.getElementById("deleteModal");
 
-    // Lista de imágenes que se van a mostrar
-    const images = [
+    // Cargar imágenes desde localStorage o usar imágenes predeterminadas
+    let images = JSON.parse(localStorage.getItem("imagenesGuardadas")) || [
       "../assets/images/paisaje.jpg",
       "../assets/images/images.jpg",
       "../assets/images/otra.jpg",
@@ -132,46 +227,98 @@
       "../assets/images/c.jpg",
     ];
 
-    // Muestra la imagen anterior (con bucle circular)
-    function showPrevImage() {
-      currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
-      showImage();
-    }
+//     // Mostrar la imagen anterior
+//     function showPrevImage() {
+//       currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+//       showImage();
+//     }
 
-    // Muestra la imagen siguiente (con bucle circular)
-    function showNextImage() {
-      currentImageIndex = (currentImageIndex + 1) % images.length;
-      showImage();
-    }
+//     // Mostrar la siguiente imagen
+//     function showNextImage() {
+//       currentImageIndex = (currentImageIndex + 1) % images.length;
+//       showImage();
+//     }
 
-    // Muestra la imagen actual en el visor
-    function showImage() {
-      // Limpia el contenedor antes de insertar nueva imagen
-      imagesContainer.innerHTML = "";
+//     // Mostrar la imagen actual
+//     function showImage() {
+//       imagesContainer.innerHTML = "";
+//       images.forEach((image, index) => {
+//         const imgElement = document.createElement("img");
+//         imgElement.src = image;
+//         imgElement.alt = `Imagen ${index + 1}`;
+//         imgElement.style.display = index === currentImageIndex ? "block" : "none";
+//         imagesContainer.appendChild(imgElement);
+//       });
+//       localStorage.setItem("imagenesGuardadas", JSON.stringify(images));
+//     }
 
-      // Inserta todas las imágenes pero solo muestra la actual
-      images.forEach((image, index) => {
-        const imgElement = document.createElement("img");
-        imgElement.src = image;
-        imgElement.alt = `Imagen ${index + 1}`;
-        imgElement.style.display = index === currentImageIndex ? "block" : "none";
-        imagesContainer.appendChild(imgElement);
-      });
-    }
+//     // Mostrar modal de confirmación
+//     function confirmDelete() {
+//       if (images.length === 0) return;
+//       modal.style.display = "flex";
+//     }
 
-    // Permite navegar con teclas de flecha izquierda y derecha
-    document.addEventListener("keydown", function (event) {
-      if (event.key === "ArrowRight") {
-        showNextImage();
-      } else if (event.key === "ArrowLeft") {
-        showPrevImage();
-      }
-    });
+//     // Cerrar el modal
+//     function closeModal() {
+//       modal.style.display = "none";
+//     }
 
-    // Muestra la primera imagen al cargar la página
-    showImage();
+//     // Eliminar imagen actual
+//     function deleteCurrentImage() {
+//       images.splice(currentImageIndex, 1);
+//       currentImageIndex = Math.max(0, currentImageIndex - 1);
+//       closeModal();
+//       showImage();
+//     }
+
+//     // Establecer la imagen como fondo
+//     function setAsWallpaper() {
+//   const currentImgSrc = images[currentImageIndex];
+//   localStorage.setItem("wallpaper", currentImgSrc);
+//   alert("Imagen establecida como fondo de escritorio.");
+
+//   // Si existe un contenedor de galería, cambia su fondo (imagenes.html)
+//   const contenedor = document.getElementsByClassName("contenedor")[0];
+//   if (contenedor) {
+//     contenedor.style.backgroundImage = `url('${currentImgSrc}')`;
+//   }
+
+//   // Si existe un fondo de escritorio, cámbialo (escritorio.html)
+//   const bgCover = document.getElementsByClassName("bg-cover")[0];
+//   if (bgCover) {
+//     bgCover.style.backgroundImage = `url('${currentImgSrc}')`;
+//     bgCover.style.backgroundSize = "cover";
+//     bgCover.style.backgroundRepeat = "no-repeat";
+//     bgCover.style.backgroundPosition = "center";
+//   }
+// }
+//     // Subir imagen desde el dispositivo
+// //       const uploadInput = document.getElementById("upload-image");
+// if (uploadInput) {
+//   uploadInput.addEventListener("change", function (event) {
+//     const file = event.target.files[0];
+//     if (file && file.type.startsWith("image/")) {
+//       const reader = new FileReader();
+//       reader.onload = function (e) {
+//         images.push(e.target.result);
+//         currentImageIndex = images.length - 1;
+//         showImage();
+//       };
+//       reader.readAsDataURL(file);
+//     }
+//   });
+// }
+
+//     // Navegación con flechas del teclado
+//     document.addEventListener("keydown", function (event) {
+//       if (event.key === "ArrowRight") showNextImage();
+//       else if (event.key === "ArrowLeft") showPrevImage();
+//     });
+
+//     // Mostrar imagen al cargar la página
+//     showImage();
   </script>
-
+  <script src="/resources/js/imagenes.js"></script>
 </body>
- <script src="/resources/js/fullscreen.js"></script>
+
 </html>

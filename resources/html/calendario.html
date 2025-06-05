@@ -1,0 +1,116 @@
+<!-- Aquí va el calendario -->
+<div class="calendario w-8/12 mx-auto mt-10 bg-purple-800 p-6 rounded-2xl shadow-2xl hidden" 
+     x-data="calendarApp()" 
+     x-init="init()">
+
+    <!-- Título y botones -->
+    <div class="flex justify-between items-center mb-4">
+        <button @click="prevMonth" class="bg-purple-600 hover:bg-purple-700 px-3 py-1 rounded-lg">&lt;</button>
+        <h2 class="text-xl font-bold" x-text="monthNames[currentMonth] + ' ' + currentYear"></h2>
+        <button @click="nextMonth" class="bg-purple-600 hover:bg-purple-700 px-3 py-1 rounded-lg">&gt;</button>
+    </div>
+
+    <!-- Días de la semana -->
+    <div class="grid grid-cols-7 text-center font-bold mb-2">
+        <template x-for="day in weekDays" :key="day">
+            <div class="uppercase" x-text="day"></div>
+        </template>
+    </div>
+
+    <!-- Celdas del calendario -->
+    <div class="grid grid-cols-7 gap-1">
+        <template x-for="blank in blanks" :key="'b'+blank">
+            <div></div>
+        </template>
+        <template x-for="day in daysInMonth" :key="day">
+            <div @click="selectDate(day)" 
+                :class="{'bg-purple-600': selectedDate.day === day, 'cursor-pointer': true}"
+                class="p-2 rounded-lg text-center hover:bg-purple-700 transition duration-200">
+                <div x-text="day"></div>
+                <div class="text-xs" x-text="getEvent(day)"></div>
+            </div>
+        </template>
+    </div>
+
+    <!-- Formulario de evento -->
+    <div class="mt-6">
+        <h3 class="text-lg font-semibold mb-2">Agregar Evento para <span x-text="selectedDateText"></span></h3>
+        <input type="text" x-model="newEvent" class="w-full p-2 rounded-lg text-black mb-2" placeholder="Nombre del evento...">
+        <button @click="saveEvent" class="bg-green-500 hover:bg-green-600 px-4 py-2 rounded-lg mr-2">Guardar</button>
+        <button @click="deleteEvent" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg">Eliminar</button>
+    </div>
+</div>
+
+<script>
+    function calendarApp() {
+        return {
+            currentMonth: new Date().getMonth(),
+            currentYear: new Date().getFullYear(),
+            selectedDate: { day: null },
+            newEvent: '',
+            events: {},
+            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
+                         'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            weekDays: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
+
+            init() {
+                this.loadEvents();
+                this.selectDate(new Date().getDate());
+            },
+            get daysInMonth() {
+                return new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
+            },
+            get blanks() {
+                return new Array(new Date(this.currentYear, this.currentMonth, 1).getDay());
+            },
+            selectDate(day) {
+                this.selectedDate = { day };
+                this.newEvent = this.getEvent(day);
+            },
+            get selectedDateText() {
+                return this.selectedDate.day ? `${this.selectedDate.day}/${this.currentMonth + 1}/${this.currentYear}` : '';
+            },
+            getEvent(day) {
+                return this.events[`${this.currentYear}-${this.currentMonth}-${day}`] || '';
+            },
+            saveEvent() {
+                if (this.selectedDate.day && this.newEvent.trim()) {
+                    this.events[`${this.currentYear}-${this.currentMonth}-${this.selectedDate.day}`] = this.newEvent;
+                    this.saveEvents();
+                    this.newEvent = '';
+                }
+            },
+            deleteEvent() {
+                const key = `${this.currentYear}-${this.currentMonth}-${this.selectedDate.day}`;
+                if (this.events[key]) {
+                    delete this.events[key];
+                    this.saveEvents();
+                    this.newEvent = '';
+                }
+            },
+            saveEvents() {
+                localStorage.setItem('calendarioEventos', JSON.stringify(this.events));
+            },
+            loadEvents() {
+                const data = localStorage.getItem('calendarioEventos');
+                this.events = data ? JSON.parse(data) : {};
+            },
+            prevMonth() {
+                if (this.currentMonth === 0) {
+                    this.currentMonth = 11;
+                    this.currentYear--;
+                } else {
+                    this.currentMonth--;
+                }
+            },
+            nextMonth() {
+                if (this.currentMonth === 11) {
+                    this.currentMonth = 0;
+                    this.currentYear++;
+                } else {
+                    this.currentMonth++;
+                }
+            }
+        };
+    }
+</script>

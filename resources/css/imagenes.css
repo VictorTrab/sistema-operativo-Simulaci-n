@@ -1,79 +1,127 @@
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-family: sans-serif;
+#image-gallery {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
 }
 
-body{
-    background: linear-gradient(to right, #DE35B6,  #017bab);
-    color: white
+#image-gallery img {
+  max-width: 100%;
+  max-height: 70vh;
+  display: block;
+  margin: 0 auto;
 }
 
-h1{
-    text-align: center;
-    position: relative;
-    width: 80%;
-    margin:  auto;
+.arrow-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
 }
-body{
-    background-color: #ecf4fb;
-}
-h1::before{
-    content: "";
-    display: block;
-    width: 100%;
-    height: 2px;
-    position: absolute;
-    background-color: black;
-    top: 50%;
-    z-index: -1;
-}
-.img-gallery{
-    width: 80%;
-    margin: 50px auto 50px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
-    gap: 30px;
-}
-.img-gallery img{
-    width: 100%;
-    cursor: pointer;
-    transition: 1s;
-}
-.img-gallery img:hover{
-    transform: scale(1.2);
-}
-.ful-img{
-    width: 100%;
-    height: 100vh;
-    background-color: rgba(0, 0,0, 0.9);
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 99;
-}
-.ful-img span{
-    position: absolute;
-    top: 5%;
-    right: 5%;
-    font-size: 30px;
-    color: #fff;
-    cursor: pointer;
-}
-.ful-img img{
-    width: 90%;
-    max-width: 600px;
-}
-@media screen and (max-width:400px){
-    h1{
-        text-decoration: underline;
-    }
-    h1::before{
-        display: none;
-    }
 
+#prev-button {
+  left: 10px;
+}
+
+#next-button {
+  right: 10px;
+}
+
+.contenedor {
+  background-image: url('/resources/assets/images/fondo2.png');
+}
+
+.volver-escritorio {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 50;
+}
+
+.volver-escritorio button {
+  border: none;
+  background: transparent;
+}
+
+.volver-escritorio img {
+  width: 45px;
+  height: 45px;
+}
+
+.botones-extra {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+label.subir,
+.botones-extra button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.botones-extra input[type="file"] {
+  display: none;
+}
+
+label.subir img,
+.botones-extra button img {
+  width: 50px;
+  height: 50px;
+}
+
+/* Estilos para el modal de advertencia */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: white;
+  color: black;
+  padding: 30px;
+  border-radius: 10px;
+  position: relative;
+  width: 400px;
+  text-align: center;
+}
+
+.modal-content button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  background-color: #5544ef;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-close {
+  position: absolute;
+  top: 2px;
+  right: 5px;
+  background: none;
+  border: none;
+  font-size: 12px;
+  cursor: pointer;
+  color: red;
 }
