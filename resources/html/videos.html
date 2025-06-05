@@ -2,73 +2,68 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Reproductor de Videos</title>
-<link rel="stylesheet" href="/resources/css/styles.css">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;500;700;900&display=swap" rel="stylesheet">
-<script src="https://kit.fontawesome.com/86886396f9.js" crossorigin="anonymous"></script>
-<script src="/resources/js/gallery.js" defer type="module"></script>
-<style>
-  #video-gallery {
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 70vh;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reproductor de Videos</title>
+  <link rel="stylesheet" href="/resources/css/styles.css">
+  <script src="https://kit.fontawesome.com/86886396f9.js" crossorigin="anonymous"></script>
+  <style>
+    #video-gallery {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 70vh;
+    }
 
-  #video-gallery video {
-    max-width: 100%;
-    max-height: 70vh;
-    display: block;
-    margin: 0 auto;
-  }
+    #video-gallery video {
+      max-width: 100%;
+      max-height: 70vh;
+      display: block;
+      margin: 0 auto;
+    }
 
-  .arrow-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 24px;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-  }
+    .arrow-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 24px;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
 
-  #prev-button {
-    left: 10px;
-  }
+    #prev-button {
+      left: 10px;
+    }
 
-  #next-button {
-    right: 10px;
-  }
+    #next-button {
+      right: 10px;
+    }
 
-  #play-pause-button {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 24px;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-    display: none;
-  }
+    #play-pause-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      display: none;
+    }
 
-  #video-gallery:hover #play-pause-button {
-    display: block;
-  }
+    #video-gallery:hover #play-pause-button {
+      display: block;
+    }
 
-  .contenedor {
-    background-image: url('/resources/assets/images/fondo3.png');
-  }
+    .contenedor {
+      background-image: url('/resources/assets/images/fondo3.png');
+    }
 
-  /* Botón para volver al escritorio */
     .volver-escritorio {
       position: absolute;
       top: 1rem;
@@ -78,16 +73,100 @@
       padding: 0.2rem;
     }
 
-    /* Icono dentro del botón de volver */
     .volver-escritorio img {
       width: 45px;
       height: 45px;
     }
-</style>
+
+    .video-controls {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 1rem;
+      align-items: center;
+    }
+
+    /* Botón agregar morado con tamaño aumentado */
+    .boton-agregar img {
+      background-color: #7e22ce;
+      padding: 12px;
+      border-radius: 8px;
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+      transition: transform 0.2s;
+      display: block;
+    }
+
+    .boton-agregar img:hover {
+      transform: scale(1.1);
+    }
+
+    /* Botón eliminar rojo con tamaño aumentado */
+    .boton-eliminar img {
+      background-color: #dc2626;
+      padding: 12px;
+      border-radius: 8px;
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+      transition: transform 0.2s;
+      display: block;
+    }
+
+    .boton-eliminar img:hover {
+      transform: scale(1.1);
+    }
+
+    /* Estilos para el modal de advertencia */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background-color: white;
+      color: black;
+      padding: 30px;
+      border-radius: 10px;
+      position: relative;
+      width: 400px;
+      text-align: center;
+    }
+
+    .modal-content button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      border-radius: 6px;
+      background-color: #5544ef;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 2px;
+      right: 5px;
+      background: none;
+      border: none;
+      font-size: 12px;
+      cursor: pointer;
+      color: red;
+    }
+  </style>
 </head>
 
 <body>
-<!-- Botón para volver al escritorio -->
+  <!-- Botón para volver al escritorio -->
   <div class="volver-escritorio">
     <button onclick="window.location.href='escritorio.html'" title="Volver al escritorio">
       <img src="/resources/assets/images/F.atras.png" alt="Volver">
@@ -95,47 +174,41 @@
   </div>
 
   <div class="flex h-screen w-full items-center justify-center bg-gray-900 bg-cover bg-no-repeat contenedor">
-    <div class="rounded-xl h-screen w-full bg-gray-800 bg-opacity-50 px-16 py-10 shadow-lg backdrop-blur-md max-sm:px-8 ">
+    <div class="rounded-xl h-screen w-full bg-gray-800 bg-opacity-50 px-16 py-10 shadow-lg backdrop-blur-md max-sm:px-8">
       <div class="text-white">
         <div class="mb-8 flex flex-col items-center">
           <h1 class="mb-2 text-2xl">Reproductor de Videos</h1>
         </div>
 
-        <div id="video-gallery" class="mb-8">
-          <button id="play-pause-button" onclick="togglePlayPause().mostraricono()" >&#9654;</button>
+        <div id="video-gallery" class="mb-4">
+          <button id="play-pause-button" onclick="togglePlayPause()">&#9654;</button>
         </div>
 
         <button id="prev-button" class="arrow-button" onclick="showPrevVideo()">&#9665;</button>
         <button id="next-button" class="arrow-button" onclick="showNextVideo()">&#9655;</button>
+
+        <!-- Controles debajo del video con imágenes -->
+        <div class="video-controls">
+          <!-- Botón agregar video -->
+          <label for="video-upload" title="Agregar video" class="boton-agregar">
+            <img src="/resources/assets/images/agg_img.png" alt="Agregar Video">
+          </label>
+          <input type="file" id="video-upload" accept="video/*" style="display:none" />
+
+          <!-- Botón eliminar video -->
+          <button onclick="deleteCurrentVideo()" title="Eliminar video" class="boton-eliminar">
+            <img src="/resources/assets/images/eliminar_img.png" alt="Eliminar Video">
+          </button>
+        </div>
       </div>
     </div>
   </div>
 
   <script>
+    let videos = JSON.parse(localStorage.getItem('videos')) || ["../assets/videos/Colibri.mp4"];
     let currentVideoIndex = 0;
     let isVideoPlaying = true;
     const videosContainer = document.getElementById("video-gallery");
-    const videos = [
-      "../assets/videos/Colibri.mp4",
-    ];
-
-    function showPrevVideo() {
-      if (currentVideoIndex > 0) {
-        currentVideoIndex--;
-      } else {
-        currentVideoIndex = videos.length - 1;
-      }
-      showVideo();
-    }
-
-    function showNextVideo() {
-      if (currentVideoIndex < videos.length - 1) {
-        currentVideoIndex++;
-      } else {
-        currentVideoIndex = 0;
-      }
-      showVideo();
-    }
 
     function showVideo() {
       videosContainer.innerHTML = "";
@@ -143,76 +216,87 @@
       const videoElement = document.createElement("video");
       videoElement.src = videos[currentVideoIndex];
       videoElement.type = "video/mp4";
-      videoElement.muted = false;
       videoElement.loop = true;
-      videoElement.addEventListener('click', togglePlayPause); // Agregamos el listener para pausar al hacer clic
+      videoElement.controls = false;
+      videoElement.addEventListener("click", togglePlayPause);
       videosContainer.appendChild(videoElement);
       videoElement.play();
+      isVideoPlaying = true;
+      document.getElementById("play-pause-button").innerHTML = "&#10074;&#10074;";
+    }
+
+    function showPrevVideo() {
+      currentVideoIndex = (currentVideoIndex - 1 + videos.length) % videos.length;
+      showVideo();
+    }
+
+    function showNextVideo() {
+      currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+      showVideo();
+    }
+
+    function togglePlayPause() {
+      const video = videosContainer.querySelector("video");
+      if (isVideoPlaying) {
+        video.pause();
+        isVideoPlaying = false;
+        document.getElementById("play-pause-button").innerHTML = "&#9654;";
+      } else {
+        video.play();
         isVideoPlaying = true;
         document.getElementById("play-pause-button").innerHTML = "&#10074;&#10074;";
-      togglePlayPause(); // Asegurarse de que el botón y el estado de reproducción estén sincronizados
+      }
     }
 
-
-    // Pausa o reanuda la reproducción del video
-    function togglePlayPause() {
-        const videoElement = videosContainer.querySelector("video");
-        if (isVideoPlaying) {
-            videoElement.pause();
-            isVideoPlaying = false;
-            document.getElementById("play-pause-button").innerHTML = "&#9654;"; 
-        } else {
-            videoElement.play();
-            isVideoPlaying = true;
-            document.getElementById("play-pause-button").innerHTML = "&#10074;&#10074;";
-        }
-    }
-
-    //si se pasa el mouse por encima del boton se muestra el icono de play o pause
-    document.getElementById("play-pause-button").addEventListener("mouseover", mostraricono);
     function mostraricono() {
-      if (isVideoPlaying) {
-        document.getElementById("play-pause-button").innerHTML = "&#10074;&#10074;";
-      } else {
-        document.getElementById("play-pause-button").innerHTML = "&#9654;";
-      }
+      document.getElementById("play-pause-button").innerHTML = isVideoPlaying ? "&#10074;&#10074;" : "&#9654;";
     }
 
-    //pausar o reanudar el video con la barra espaciadora
-    document.addEventListener("keydown", function (event) {
-      if (event.key === " ") {
-        togglePlayPause();
+    // Agregar nuevo video desde el input
+    document.getElementById("video-upload").addEventListener("change", function (event) {
+      const file = event.target.files[0];
+      if (file) {
+        const videoURL = URL.createObjectURL(file);
+        videos.push(videoURL);
+        currentVideoIndex = videos.length - 1;
+        localStorage.setItem("videos", JSON.stringify(videos));
+        showVideo();
       }
     });
 
-    //maximizar el video al darle doble click
-    document.getElementById("video-gallery").addEventListener("dblclick", maximizar);
-    function maximizar() {
-      const videoElement = videosContainer.querySelector("video");
+    // Eliminar el video actual
+    function deleteCurrentVideo() {
+      if (videos.length > 1) {
+        videos.splice(currentVideoIndex, 1);
+        currentVideoIndex = currentVideoIndex % videos.length;
+        localStorage.setItem("videos", JSON.stringify(videos));
+        showVideo();
+      } else {
+        alert("Debe haber al menos un video.");
+      }
+    }
+
+    // Teclas: espacio = play/pause | flechas = cambiar video
+    document.addEventListener("keydown", function (event) {
+      if (event.key === " ") togglePlayPause();
+      else if (event.key === "ArrowRight") showNextVideo();
+      else if (event.key === "ArrowLeft") showPrevVideo();
+    });
+
+    // Doble clic para pantalla completa
+    videosContainer.addEventListener("dblclick", function () {
+      const video = videosContainer.querySelector("video");
       if (!document.fullscreenElement) {
-        videoElement.requestFullscreen();
+        video.requestFullscreen();
       } else {
-        if (document.exitFullscreen) {
-          document.exitFullscreen();
-        }
-      }
-    }
-
-    
-
-
-    // Maneja las teclas de flecha para navegar entre videos
-    document.addEventListener("keydown", function (event) {
-      if (event.key === "ArrowRight") {
-        showNextVideo();
-      } else if (event.key === "ArrowLeft") {
-        showPrevVideo();
+        document.exitFullscreen();
       }
     });
 
-    // Muestra el primer video al cargar la página
+    // Muestra el primer video al cargar
     showVideo();
+    document.getElementById("play-pause-button").addEventListener("mouseover", mostraricono);
   </script>
 </body>
- <script src="/resources/js/fullscreen.js"></script>
+
 </html>

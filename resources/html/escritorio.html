@@ -291,11 +291,25 @@
             }
         }
     </script>
-</body>
+    
+    <!-- //mostrar automáticamente un fondo personalizado (wallpaper) -->
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const wallpaper = localStorage.getItem("wallpaper");
+  const bgCover = document.getElementsByClassName("bg-cover")[0];
+  if (wallpaper && bgCover) {
+    bgCover.style.backgroundImage = `url('${wallpaper}')`;
+    bgCover.style.backgroundSize = "cover";
+    bgCover.style.backgroundRepeat = "no-repeat";
+    bgCover.style.backgroundPosition = "center";
+  }
+});
+</script>
 
+</body>
     </main>
 <script src="/resources/js/windows.js"></script>
 <script src="/resources/js/fullscreen.js"></script>
+<script src="/resources/js/imagenes.js"></script>
 </body>
-
 </html>

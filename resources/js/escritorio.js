@@ -83,4 +83,56 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = "/resources/app/Gestor-Tareas-Proyecto-ED-UPh/index.html"
     })
 
+    
+ // Establecer la imagen como fondo
+   function setAsWallpaper() {
+  const currentImgSrc = images[currentImageIndex];
+  localStorage.setItem("wallpaper", currentImgSrc);
+  alert("Imagen establecida como fondo de escritorio.");
+
+  // Si existe un contenedor de galería, cambia su fondo (imagenes.html)
+  const contenedor = document.getElementsByClassName("contenedor")[0];
+  if (contenedor) {
+    contenedor.style.backgroundImage = `url('${currentImgSrc}')`;
+  }
+
+  // Si existe un fondo de escritorio, cámbialo (escritorio.html)
+  const bgCover = document.getElementsByClassName("bg-cover")[0];
+  if (bgCover) {
+    bgCover.style.backgroundImage = `url('${currentImgSrc}')`;
+    bgCover.style.backgroundSize = "cover";
+    bgCover.style.backgroundRepeat = "no-repeat";
+    bgCover.style.backgroundPosition = "center";
+  }
+}
+   // Subir imagen desde el dispositivo
+const uploadInput = document.getElementById("upload-image");
+if (uploadInput) {
+  uploadInput.addEventListener("change", function (event) {
+    const file = event.target.files[0];
+    if (file && file.type.startsWith("image/")) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        images.push(e.target.result);
+        currentImageIndex = images.length - 1;
+        showImage();
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+}
+
+
+    // Recuperar imagen del fondo guardada en localStorage
+  const wallpaper = localStorage.getItem("wallpaper");
+
+  // Si existe, establecerla como fondo del body
+  if (wallpaper) {
+    document.body.style.backgroundImage = `url('${wallpaper}')`;
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundRepeat = "no-repeat";
+    document.body.style.backgroundPosition = "center";
+  }
+
+
 })
