@@ -96,8 +96,6 @@
                 </div>
             </div>
         </div>
-
-        
 <!-- Aquí va el calendario -->
 <div class="calendario w-8/12 fixed top-0 right-0 bg-opacity-50 bg-transparent hidden">
     <link rel="dns-prefetch" href="//unpkg.com" />
@@ -162,9 +160,9 @@
                     </div>
                 </template>
             </div>
-
             <!-- Modal -->
-            <div x-show.transition.opacity="openEventModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+             <!-- Calendario -->
+             <div x-show.transition.opacity="openEventModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
                 <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
                     <h2 class="text-2xl font-semibold text-purple-700 mb-4">Detalles del Evento</h2>
 
@@ -173,16 +171,17 @@
 
                     <label class="block mb-2 text-sm font-medium text-gray-700">Fecha</label>
                     <input x-model="formatted_event_date" class="w-full mb-4 p-2 border rounded bg-gray-100" type="text" readonly>
-
                     <div class="text-right">
                         <button @click="openEventModal = false" class="bg-gray-300 px-4 py-2 rounded mr-2">Cancelar</button>
                         <button @click="addEvent()" class="bg-purple-700 text-white px-4 py-2 rounded">Guardar</button>
                     </div>
                 </div>
-            </div>
+            </div>  
+            <!-- Crear ventanas Mobales para diferentes App -->
             <!-- /Modal -->
         </div>
     </div>
+<<<<<<< HEAD
 
      <!-- /funciones del calendario-->
     <script>
@@ -308,6 +307,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </body>
     </main>
+=======
+</main>
+</body>
+<script src="/resources/js/index.js"></script>
+>>>>>>> eee70b57962b6a86b95a5a897311dc1654f76cf4
 <script src="/resources/js/windows.js"></script>
 <script src="/resources/js/fullscreen.js"></script>
 <script src="/resources/js/imagenes.js"></script>
