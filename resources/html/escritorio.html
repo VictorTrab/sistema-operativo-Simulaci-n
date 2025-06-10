@@ -16,7 +16,7 @@
 </head>
 <body>
     <main>
-        <div class="bg-cover bg-center h-screen" style="background-image: url('/resources/assets/images/Fondo1.png');">
+            <div class="bg-cover bg-center h-screen relative overflow-hidden"  style="background-image: url('/resources/assets/images/Fondo1.png');">
             <div class="barra-superior">
                 <!-- Contenido de la barra superior -->
                 <div class="botones flex justify-start items-center">
@@ -74,39 +74,83 @@
                     </button>
                 </div>
             </div>
-            <div class="flex justify-center">
-                <div class="barra-tareas">
-                    <button class="button-barra-tareas terminal">
-                        <img src="/resources/assets/images/terminal-solid 1.png">
-                    </button>
-                    <button class="button-barra-tareas camara">
-                        <img src="/resources/assets/images/camera-solid 1.png">
-                    </button>
-                    <button class="button-barra-tareas ed_texto">
-                        <img src="/resources/assets/images/clipboard-regular 2.png">
-                    </button>
-                    <button class="button-barra-tareas video">
-                        <img src="/resources/assets/images/video-solid 1.png">
-                    </button>
-                    <button class="button-barra-tareas calculator">
-                        <img src="/resources/assets/images/calculator-solid 1.png">
-                    </button>
-                    <button class="button-barra-tareas paint gestor_tarea">
-                       <img src="/resources/assets/images/test_tasks_list_clipboard_todo_icon_191634 1.png">
-                    </button>
-                        <button class="button-barra-tareas explorer-files">
-                       <img src="/resources/assets/images/folder-regular 1.png">
-                    </button>
-                </div>
+            <!-- Barra de tarea -->
+<!-- Barra de tareas siempre abajo -->
+<div class="flex justify-center">
+    <div class="barra-tareas flex items-center space-x-2">
+
+        <!-- Grupo Inicio -->
+        <div class="relative">
+            <!-- Botón tipo Inicio -->
+            <button id="boton-inicio" class="button-barra-tareas">
+                <img src="/resources/assets/images/probart.png" alt="Inicio" class="h-8 w-8">
+            </button>
+
+            <!-- Menú tipo Inicio pegado al lado del botón -->
+            <div id="menu-inicio" class="absolute left-0 bottom-full mb-2 bg-gray-800 bg-opacity-90 text-white rounded-lg shadow-lg p-4 z-50" style="width: 220px;">
+                <h3 class="text-lg font-semibold mb-2">Aplicaciones</h3>
+                <ul class="space-y-2">
+                    <li><a href="#">App 1</a></li>
+                    <li><a href="#">App 2</a></li>
+                    <li><a href="#">App 3</a></li>
+                    <li><a href="#">App 4</a></li>
+                </ul>
             </div>
         </div>
-        <!-- calendario -->
-        <div class="calendario w-8/12 fixed top-0 right-0 bg-opacity-50 bg-transparent hidden">
-            <style>
+
+        <!-- Apps -->
+        <button class="button-barra-tareas terminal" href="#">
+            <img src="/resources/assets/images/terminal-solid 1.png">
+        </button>
+        <button class="button-barra-tareas camara" href="#">
+            <img src="/resources/assets/images/camera-solid 1.png">
+        </button>
+        <button class="button-barra-tareas ed_texto" href="#">
+            <img src="/resources/assets/images/clipboard-regular 2.png">
+        </button>
+        <button class="button-barra-tareas video" href="#">
+            <img src="/resources/assets/images/video-solid 1.png">
+        </button>
+        <button class="button-barra-tareas calculator" href="#">
+            <img src="/resources/assets/images/calculator-solid 1.png">
+        </button>
+        <button class="button-barra-tareas paint gestor_tarea" href="#">
+            <img src="/resources/assets/images/test_tasks_list_clipboard_todo_icon_191634 1.png">
+        </button>
+        <button class="button-barra-tareas explorer-files" href="#">
+            <img src="/resources/assets/images/folder-regular 1.png">
+        </button>
+    </div>
+</div>
+
+<!-- Script para mostrar/ocultar el menú Inicio y cerrar si se hace clic fuera -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const botonInicio = document.getElementById('boton-inicio');
+    const menuInicio = document.getElementById('menu-inicio');
+
+    // Toggle del menú
+    botonInicio.addEventListener('click', function(e) {
+        e.stopPropagation(); // evita que el clic llegue al body
+        menuInicio.classList.toggle('show');
+    });
+
+    // Cerrar menú si se hace clic fuera
+    document.addEventListener('click', function(e) {
+        if (!menuInicio.contains(e.target) && !botonInicio.contains(e.target)) {
+            menuInicio.classList.remove('show');
+        }
+    });
+});
+</script>
+            </div>
+            <!-- calendario -->
+            <div class="calendario w-8/12 fixed top-0 right-0 bg-opacity-50 bg-transparent hidden">
+                <style>
                 [x-cloak] {
                     display: none;
                 }
-            </style>
+                </style>
                 <div class="w-full min-h-screen flex justify-end items-start p-8 mt-16">
                     <div class="w-11/12 md:w-8/12 bg-purple-700 bg-opacity-95 rounded-xl shadow-xl p-6" x-data="app()" x-init="[initDate(), getNoOfDays()]" x-cloak>
                         <div class="flex items-center justify-between mb-4 text-white">
@@ -174,39 +218,17 @@
                                 </div>
                             </div>
                         </div>  
-                </div>
-            </div>
-        </div>
-        <!-- Crear ventanas Mobales para diferentes App -->
-        <div class="window" id="appWindow">
-            <div class="title-bar" id="titleBar">
-                <div class="title">
-                    <div class="app-icon">📱</div>
-                    <span id="appTitle">Mi Aplicación</span>
-                </div>
-                    <div class="window-controls">
-                        <button class="control-btn minimize-btn" id="minimizeBtn"></button>
-                        <button class="control-btn maximize-btn" id="maximizeBtn"></button>
-                        <button class="control-btn close-btn" id="closeBtn"></button>
                     </div>
                 </div>
-        
-                <div class="app-content" id="appContent">
-                <!-- AQUÍ VA EL CONTENIDO DE TU APLICACIÓN -->
-  
-                <!-- FIN DEL CONTENIDO DE EJEMPLO -->
-                </div>
-                <div class="resize-handle right"></div>
-                <div class="resize-handle bottom"></div>
-                <div class="resize-handle corner"></div>
-            <button class="restore-btn" id="restoreBtn">↗️</button>
-        </div> 
-     <!-- /funciones del calendario-->
-        <script>
-        const MONTH_NAMES = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-        const DAYS = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+            </div>
+             <!-- Crear ventanas Mobales para diferentes App -->
+            <div id="windowsContainer"></div>
+            <!-- /funciones del calendario-->
+            <script>
+                const MONTH_NAMES = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+                const DAYS = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
 
-        function app() {
+                function app() {
             return {
                 month: '',
                 year: '',
@@ -307,10 +329,10 @@
                 }
             }
         }
-        </script>
+            </script>
     
-        <!-- //mostrar automáticamente un fondo personalizado (wallpaper) -->
-        <script>
+            <!-- //mostrar automáticamente un fondo personalizado (wallpaper) -->
+            <script>
             document.addEventListener("DOMContentLoaded", function () {
             const wallpaper = localStorage.getItem("wallpaper");
             const bgCover = document.getElementsByClassName("bg-cover")[0];
@@ -321,7 +343,7 @@
                 bgCover.style.backgroundPosition = "center";
             }
             });
-        </script>
+            </script>
     </main>
         <script src="/resources/js/index.js"></script>
         <script src="/resources/js/imagenes.js"></script>

@@ -1631,3 +1631,46 @@ video {
     padding-bottom: 6rem;
   }
 }
+
+
+#menu-inicio {
+    bottom: 100%;
+    margin-bottom: 10px;
+    left: 0;
+    opacity: 0;
+    transform: translateY(10px); /* solo para el efecto de aparecer */
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#menu-inicio.show {
+    opacity: 1;
+    transform: translateY(0); /* vuelve a su posición normal */
+    pointer-events: auto;
+}
+
+
+#menu-inicio h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.75rem;
+}
+
+#menu-inicio ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#menu-inicio li a {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    text-decoration: none;
+    color: white;
+    transition: background 0.2s ease;
+}
+
+#menu-inicio li a:hover {
+    background: rgba(255, 255, 255, 0.1);
+}

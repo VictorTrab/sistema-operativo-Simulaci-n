@@ -16,8 +16,8 @@
 
 .arrow-button {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 70%;
+  transform: translateY(-70%);
   font-size: 24px;
   background: none;
   border: none;
