@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     setInterval(mostrarHoraYFecha, 1000); 
     const redirigirALogin = () => {
         paginaDesbloqueo.style.filter = 'blur(10px)'; 
+        localStorage.setItem('fullscreen', 'ON');
         setTimeout(() => {
             window.location.href = 'resources/html/login.html';
         }, 500); 

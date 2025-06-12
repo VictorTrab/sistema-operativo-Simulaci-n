@@ -634,7 +634,7 @@ video {
 .button-barra-tareas {
   margin-left: 1rem;
   margin-right: 1rem;
-  display: inline-flex;
+  /* display: inline-flex; */
   height: 3rem;
   width: 3rem;
   cursor: pointer;
@@ -1669,4 +1669,13 @@ video {
 
 #menu-inicio li a:hover {
     background: rgba(255, 255, 255, 0.1);
+}
+
+.search_icon{
+  width: 200px;
+
+}
+
+.search_icon img{
+  width: 30px;
 }

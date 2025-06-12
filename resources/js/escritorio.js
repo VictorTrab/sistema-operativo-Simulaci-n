@@ -9,6 +9,10 @@ document.addEventListener("DOMContentLoaded", function () {
         minutos = minutos < 10 ? "0" + minutos : minutos;
         let horaActual = hora + ":" + minutos + " " + ampm;
         document.querySelector(".hora_actual").innerHTML = horaActual;
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+        }
+
     }
     setInterval(mostrarHora, 1000);
 
@@ -75,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
             htmlUrl: "/resources/html/terminal.html"
         },
             spotify: {
-            title: "Spotify",
+            title: "Arvik Beats",
             icon: "🎵",
             htmlUrl: "/resources/html/spotify.html"
         }
@@ -125,6 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.querySelector('.cerrarSesion').addEventListener('click', function () {
         console.log("Cerrando sesión");
+        localStorage.removeItem('fullscreen');
         window.location.href = "/index.html";
     });
 

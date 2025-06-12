@@ -28,13 +28,16 @@ document.addEventListener('DOMContentLoaded', function (){
           let password = document.getElementById('password').value;
           let confirmPassword = document.getElementById('confirmPassword').value;
 
-          if (password === confirmPassword) {
-              SaveUser(username, password);
-              alert('Usuario registrado exitosamente.');
-              window.location.href = 'login.html';
-          } else {
-              alert('Las contraseñas no coinciden. Por favor, inténtelo de nuevo.');
-          }
+        if (password === confirmPassword) {
+            SaveUser(username, password);
+            alert('Usuario registrado exitosamente.');
+            document.documentElement.requestFullscreen().then(() => {
+                window.location.href = 'login.html';
+            });
+        }else {
+            alert("¡las Contraseñas no coinciden!")
+        }
+
       });
   }
 
@@ -56,11 +59,11 @@ document.addEventListener('DOMContentLoaded', function (){
 
         if (user.password === password) {
             alert('Inicio de sesión exitoso');
-            localStorage.setItem('usuarioActual', JSON.stringify(user)); // Guardar usuario actual
-            window.location.href = 'escritorio.html';
-        } else {
-            alert('Correo electronico o Contraseña incorrecta. Por favor, inténtelo de nuevo.');
-        }
+            localStorage.setItem('usuarioActual', JSON.stringify(user));
+            document.documentElement.requestFullscreen().then(() => {
+                window.location.href = 'escritorio.html';
+            });
+}       
     });
 }
 
@@ -69,3 +72,4 @@ document.querySelector(".crear-usuario").addEventListener('click', function () {
         window.location.href = "/resources/html/register.html"    })
     
 });
+
