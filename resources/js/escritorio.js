@@ -82,6 +82,11 @@ document.addEventListener("DOMContentLoaded", function () {
             title: "Arvik Beats",
             icon: "🎵",
             htmlUrl: "/resources/html/spotify.html"
+        },
+        imagenes: {
+            title: "Imagenes",
+            icon: "📷",
+            htmlUrl: "/resources/html/imagenes.html"
         }
     };
 
@@ -101,9 +106,9 @@ document.addEventListener("DOMContentLoaded", function () {
         launchApp('editor');
     });
 
-    document.querySelector(".camara").addEventListener('click', function () {
+    document.querySelector(".imagenes").addEventListener('click', function () {
         console.log("Editor de imágenes");
-        launchApp('camera');
+        launchApp('imagenes');
     });
 
     document.querySelector(".video").addEventListener('click', function () {
