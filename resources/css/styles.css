@@ -616,6 +616,7 @@ video {
 }
 
 .barra-tareas {
+  box-sizing: border-box;
   position: absolute;
   bottom: 1.25rem;
   display: flex;
@@ -626,61 +627,56 @@ video {
   --tw-border-opacity: 0.1;
   background-color: rgb(75 85 99 / var(--tw-bg-opacity, 1));
   --tw-bg-opacity: 0.3;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  --tw-backdrop-blur: blur(8px);
-  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
-  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+  padding: 0.5rem;
+  backdrop-filter: blur(8px);
 }
 
 .button-barra-tareas {
   margin-left: 1rem;
   margin-right: 1rem;
   display: inline-flex;
-  height: 4rem;
-  width: 4rem;
+  height: 3rem;
+  width: 3rem;
   cursor: pointer;
   align-items: center;
   justify-content: center;
   border-radius: 0.5rem;
-  border-width: 1px;
-  border-color: transparent;
+  border: 1px solid transparent;
   background-color: rgb(209 213 219 / var(--tw-bg-opacity, 1));
   --tw-bg-opacity: 0.2;
   padding: 0.5rem;
   font-weight: 700;
-  --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+  --tw-text-opacity: 1;
+  box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
 }
 
 .button-barra-tareas:hover {
-  --tw-scale-x: 1.1;
-  --tw-scale-y: 1.1;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-  border-width: 2px;
-  --tw-border-opacity: 1;
-  border-color: rgb(255 255 255 / var(--tw-border-opacity, 1));
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
-  --tw-bg-opacity: 0.1;
+  border-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.4);
 }
 
 .barra-superior {
   position: absolute;
-  top: 0px;
+  top: 0;
+  left: 0;
+  right: 0;
   display: flex;
   width: 100%;
+  height: 3.5rem; 
   align-items: center;
   justify-content: space-between;
-  background-color: rgb(156 163 175 / var(--tw-bg-opacity, 1));
-  --tw-bg-opacity: 0.4;
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
-  --tw-backdrop-blur: blur(12px);
-  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
-  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+  padding: 0 1rem;
+  background-color: rgba(75, 85, 99, 0.6); 
+  color: rgba(255, 255, 255, 1);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
+
+
 
 .pointer-events-none {
   pointer-events: none;

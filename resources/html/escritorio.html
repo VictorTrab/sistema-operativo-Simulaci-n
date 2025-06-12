@@ -20,9 +20,8 @@
             <div class="barra-superior">
                 <!-- Contenido de la barra superior -->
                 <div class="botones flex justify-start items-center">
-                    <button><img class="h-20 w-20" src="/resources/assets/images/probart.png" width="20"
-                            height="20"></button>
-                    <button class="text-2xl">Buscar</button>
+                    <!-- <button><img class="h-20 w-20" src="/resources/assets/images/probart.png" width="20"
+                            height="20"></button> -->
                 </div>
                 <div class="botones flex align-center px-2">
                     <span class="hora_actual px-2 text-2xl">00:00</span>
@@ -87,63 +86,93 @@
             </button>
 
             <!-- Menú tipo Inicio pegado al lado del botón -->
-            <div id="menu-inicio" class="absolute left-0 bottom-full mb-2 bg-gray-800 bg-opacity-90 text-white rounded-lg shadow-lg p-4 z-50" style="width: 220px;">
-                <h3 class="text-lg font-semibold mb-2">Aplicaciones</h3>
-                <ul class="space-y-2">
-                    <li><a href="#">App 1</a></li>
-                    <li><a href="#">App 2</a></li>
-                    <li><a href="#">App 3</a></li>
-                    <li><a href="#">App 4</a></li>
-                </ul>
-            </div>
+<div id="menu-inicio" class="absolute left-0 bottom-full mb-2 bg-gray-900 bg-opacity-95 text-white rounded-lg shadow-lg p-3 z-50 w-[400px] hidden">
+    <div class="grid grid-cols-2 gap-2">
+        <!-- Columna 1: Apps -->
+        <div class="flex flex-col space-y-1">
+            <h3 class="text-base font-semibold mb-1">Aplicaciones</h3>
+            <button class="app-launch flex items-center bg-gray-800 hover:bg-gray-700 p-1.5 rounded text-sm" data-app="antivirus">
+                <img src="/resources/assets/images/antivirus.png" class="h-5 w-5 mr-2" />
+                <span>Antivirus</span>
+            </button>
+            <button class="app-launch flex items-center bg-gray-800 hover:bg-gray-700 p-1.5 rounded text-sm" data-app="google">
+                <img src="/resources/assets/images/cromo.png" class="h-5 w-5 mr-2" />
+                <span>Google</span>
+            </button>
+            <button class="app-launch flex items-center bg-gray-800 hover:bg-gray-700 p-1.5 rounded text-sm" data-app="pac_man">
+                <img src="/resources/assets/images/juego.png" class="h-5 w-5 mr-2" />
+                <span>Pac Man</span>
+            </button>
+            <button class="app-launch flex items-center bg-gray-800 hover:bg-gray-700 p-1.5 rounded text-sm" data-app="temporisador">
+                <img src="/resources/assets/images/temporizador.png" class="h-5 w-5 mr-2" />
+                <span>Temporizador</span>
+            </button>
+            <button class="app-launch flex items-center bg-gray-800 hover:bg-gray-700 p-1.5 rounded text-sm" data-app="webadpp">
+                <img src="/resources/assets/images/tiempo.png" class="h-5 w-5 mr-2" />
+                <span>Tiempo</span>
+            </button>
+            <button class="app-launch flex items-center bg-gray-800 hover:bg-gray-700 p-1.5 rounded text-sm" data-app="spotify">
+                <img src="/resources/assets/images/spotify.png" class="h-5 w-5 mr-2" alt="Spotify">
+                <span>Spotify</span>
+            </button>
+                <button class="app-launch flex items-center bg-gray-800 hover:bg-gray-700 p-1.5 rounded text-sm" data-app="camara">
+                <img src="/resources/assets/images/camera-solid 1.png" class="h-5 w-5 mr-2" alt="Spotify">
+                <span>camara</span>
+            </button>
         </div>
+        <!-- Columna 2: Widgets -->
+        <div class="flex flex-col space-y-1">
+            <h3 class="text-base font-semibold mb-1">Widgets</h3>
+            <div id="widgetContainer" class="flex flex-col space-y-1 text-sm"></div>
+        </div>
+    </div>
+</div>
 
+<!-- CSS animación -->
+<style>
+#menu-inicio.show {
+    display: block !important;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+#menu-inicio {
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+</style>
         <!-- Apps -->
-        <button class="button-barra-tareas terminal" href="#">
+        <button class="button-barra-tareas">
+            <img src="/resources/assets/images/buscador.png">
+        </button>
+        <button class="button-barra-tareas terminal">
             <img src="/resources/assets/images/terminal-solid 1.png">
         </button>
-        <button class="button-barra-tareas camara" href="#">
+        <button class="button-barra-tareas camara">
             <img src="/resources/assets/images/camera-solid 1.png">
         </button>
-        <button class="button-barra-tareas ed_texto" href="#">
+        <button class="button-barra-tareas ed_texto">
             <img src="/resources/assets/images/clipboard-regular 2.png">
         </button>
-        <button class="button-barra-tareas video" href="#">
+        <button class="button-barra-tareas video">
             <img src="/resources/assets/images/video-solid 1.png">
         </button>
-        <button class="button-barra-tareas calculator" href="#">
+        <button class="button-barra-tareas calculator">
             <img src="/resources/assets/images/calculator-solid 1.png">
         </button>
-        <button class="button-barra-tareas paint gestor_tarea" href="#">
+        <button class="button-barra-tareas paint gestor_tarea">
             <img src="/resources/assets/images/test_tasks_list_clipboard_todo_icon_191634 1.png">
         </button>
-        <button class="button-barra-tareas explorer-files" href="#">
+        <button class="button-barra-tareas explorer-files">
             <img src="/resources/assets/images/folder-regular 1.png">
         </button>
     </div>
 </div>
-
-<!-- Script para mostrar/ocultar el menú Inicio y cerrar si se hace clic fuera -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const botonInicio = document.getElementById('boton-inicio');
-    const menuInicio = document.getElementById('menu-inicio');
-
-    // Toggle del menú
-    botonInicio.addEventListener('click', function(e) {
-        e.stopPropagation(); // evita que el clic llegue al body
-        menuInicio.classList.toggle('show');
-    });
-
-    // Cerrar menú si se hace clic fuera
-    document.addEventListener('click', function(e) {
-        if (!menuInicio.contains(e.target) && !botonInicio.contains(e.target)) {
-            menuInicio.classList.remove('show');
-        }
-    });
-});
-</script>
-            </div>
+</div>
             <!-- calendario -->
             <div class="calendario w-8/12 fixed top-0 right-0 bg-opacity-50 bg-transparent hidden">
                 <style>
@@ -350,5 +379,6 @@ document.addEventListener('DOMContentLoaded', function() {
         <script src="/resources/js/template.js"></script>
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer></script>
         <script src="/resources/js/escritorio.js" defer type="module"></script>
+        <script src="/resources/js/fullscreen.js"></script>
 </body>
 </html>

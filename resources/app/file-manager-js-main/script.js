@@ -1,5 +1,3 @@
-// Opciones de agregare Archivos, Crear Carpeta, Eliminar, estan comentadas para poder solucionarlas más adelante
-
 class File {
   constructor(name, content = '') {
     this.name = name;
@@ -9,66 +7,55 @@ class File {
   }
 }
 
-// Clase que representa un directorio
 class Directory {
   constructor(name) {
     this.name = name;
-    this.isDirectory = true; // Siempre es un directorio
-    this.children = []; // Almacena archivos y subdirectorios
+    this.isDirectory = true;
+    this.children = [];
     this.created = new Date();
   }
 }
 
-// Clase que gestiona la estructura del sistema de archivos
 class FileManager {
   constructor() {
-    this.root = new Directory('root'); // El directorio raíz
+    this.root = new Directory('root');
   }
 
-  // Agrega un archivo o directorio al nodo padre
   addFileOrDirectory(parent, name, isDirectory = true, content = '') {
     const newNode = isDirectory ? new Directory(name) : new File(name, content);
     parent.children.push(newNode);
     return newNode;
   }
 
-  // Busca un nodo por nombre en la estructura del sistema de archivos
   findNodeByName(node, name) {
-    if (node.name === name) {
-      return node;
-    }
+    if (node.name === name) return node;
 
     if (node.isDirectory) {
       for (const child of node.children) {
         const result = this.findNodeByName(child, name);
-        if (result) {
-          return result;
-        }
+        if (result) return result;
       }
     }
 
     return null;
   }
 
-  // Obtiene los hijos de un nodo
   getChildren(node) {
     return node.children;
   }
 
-  // Elimina un archivo o directorio del nodo padre por nombre
   deleteFileOrDirectory(parent, name) {
     parent.children = parent.children.filter((child) => child.name !== name);
   }
 
-  // Muestra la estructura del directorio en la consola
   displayDirectoryStructure(node, depth = 0) {
     console.log(
       '  '.repeat(depth) +
-        node.name +
-        (node.isDirectory ? '/' : ':') +
-        '\n' +
-        '  '.repeat(depth) +
-        (node.isDirectory ? '' : node.content)
+      node.name +
+      (node.isDirectory ? '/' : ':') +
+      '\n' +
+      '  '.repeat(depth) +
+      (node.isDirectory ? '' : node.content)
     );
     if (node.isDirectory) {
       for (const child of node.children) {
@@ -90,10 +77,7 @@ function formatDate(date) {
   ].join('-');
 }
 
-// Crea una instancia de la clase FileManager
 const fileManager = new FileManager();
-
-// Crea la estructura de directorios y archivos
 const root = fileManager.root;
 const documents = fileManager.addFileOrDirectory(root, 'documents');
 const pictures = fileManager.addFileOrDirectory(root, 'pictures');
@@ -108,19 +92,37 @@ const report = fileManager.addFileOrDirectory(
   'Content of the report.\nlorem ipsum dolor sit amet.'
 );
 
-// Función para renderizar la estructura de directorios en una interfaz de usuario
-function renderDirectories(node = root) {
-  const goBack = document.createElement('li');
-  var lastDir;
-  const currentDir = fileManager.findNodeByName(
-    node,
-    document.getElementById('directories').lastElementChild.lastElementChild
-      .innerHTML
-  );
+// Estado global: directorio actual
+let currentDir = root;
+
+function renderDirectories(node = currentDir) {
+  currentDir = node;
 
   const display = document.getElementById('files');
+  display.innerHTML = '';
 
-  fileManager.getChildren(currentDir).forEach((child, i) => {
+  // Actualizar breadcrumb
+  updateBreadcrumb(node);
+
+  // Botón para volver si no estamos en root
+  if (node !== root) {
+    const trBack = document.createElement('tr');
+    const tdBack = document.createElement('td');
+    tdBack.colSpan = 4;
+    tdBack.textContent = '..';
+    tdBack.style.cursor = 'pointer';
+    tdBack.style.color = 'cyan';
+    tdBack.addEventListener('click', () => {
+      const parentDir = findParent(root, node);
+      if (parentDir) {
+        renderDirectories(parentDir);
+      }
+    });
+    trBack.appendChild(tdBack);
+    display.appendChild(trBack);
+  }
+
+  fileManager.getChildren(node).forEach((child, i) => {
     const tr = document.createElement('tr');
     const num = document.createElement('td');
     const name = document.createElement('td');
@@ -135,127 +137,115 @@ function renderDirectories(node = root) {
       type.innerHTML = 'Directorio';
       icon.classList = 'fa-solid fa-folder';
       name.appendChild(icon);
+      name.append(' ' + child.name);
       tr.addEventListener('click', function () {
-        lastDir = currentDir;
-        console.log(lastDir);
-        display.innerHTML = '';
-
-        const strong = document.createElement('strong');
-        const li = document.createElement('li');
-        strong.innerHTML = child.name;
-        strong.onclick = goToDirectory;
-        li.appendChild(strong);
-        li.setAttribute('id', parseInt(document.getElementById('directories').lastElementChild.id) + 1);
-        document.getElementById('directories').append(li);
         renderDirectories(child);
       });
-      display.appendChild(tr);
     } else {
       type.innerHTML = 'Archivo';
       icon.classList = 'fa-solid fa-file';
       name.appendChild(icon);
+      name.append(' ' + child.name);
       tr.addEventListener('click', function () {
         const view = document.getElementById('view');
         view.innerHTML = '';
-        lastDir = currentDir;
-        console.log(lastDir);
-        display.innerHTML = '';
-        var h4 = document.createElement('h4');
+        const h4 = document.createElement('h4');
         h4.textContent = child.name + ':';
-        var pre = document.createElement('pre');
+        const pre = document.createElement('pre');
         pre.textContent = child.content;
         view.appendChild(h4);
         view.appendChild(pre);
       });
     }
-    name.append(child.name);
+
     tr.appendChild(num);
     tr.appendChild(name);
     tr.appendChild(type);
     tr.appendChild(date);
-
-    // Verifica si el directorio actual no es el directorio raíz
-    if (currentDir.name !== 'root') {
-      goBack.textContent = '..';
-      //Comentado por bug de css
-      // Agrega el botón "Atrás" al principio de la lista
-      //tr.appendChild(goBack);
-
-      // Agrega un evento al botón "Atrás" para retroceder al directorio anterior
-      //goBack.addEventListener('click', () => {
-      //  console.log(lastDir.name); // Imprime el nombre del directorio anterior en la consola
-        //display.innerHTML = ''; // Limpia el área de visualización
-       // renderDirectories(lastDir); // Renderiza el contenido del directorio anterior
-     // });
-    }
-    display.appendChild(tr); // Agrega la lista al área de visualización
+    display.appendChild(tr);
   });
 }
 
-// Función para crear un nuevo archivo
-// function createFile() {
-//   const currentDir = fileManager.findNodeByName(
-//     root,
-//     document.getElementById('dir').innerHTML
-//   );
-//   const name = document.getElementById('input').value;
-//   if (name === '') return; // Si no se proporciona un nombre, sale de la función
-//   fileManager.addFileOrDirectory(currentDir, name, false); // Agrega un nuevo archivo al directorio actual
-//   document.getElementById('input').value = '';
-//   document.getElementById('files').innerHTML = '';
-//   renderDirectories(currentDir); // Renderiza el contenido del directorio actual
-// }
-
-
-// Función para crear un nuevo directorio
-// function createDir() {
-//   const currentDir = fileManager.findNodeByName(
-//     root,
-//     document.getElementById('dir').innerHTML
-//   );
-//   const name = document.getElementById('input').value;
-//   if (name === '') return; // Si no se proporciona un nombre, sale de la función
-//   fileManager.addFileOrDirectory(currentDir, name, true); // Agrega un nuevo directorio al directorio actual
-//   document.getElementById('input').value = '';
-//   document.getElementById('files').innerHTML = '';
-//   renderDirectories(currentDir); // Renderiza el contenido del directorio actual
-// }
-
-
-// Función para eliminar un archivo o directorio
-// function removeFileOrDir() {
-//   const currentDir = fileManager.findNodeByName(
-//     root,
-//     document.getElementById('dir').innerHTML
-//   );
-//   const name = document.getElementById('input').value;
-//   fileManager.deleteFileOrDirectory(currentDir, name); // Elimina el archivo o directorio del directorio actual
-//   document.getElementById('input').value = '';
-//   document.getElementById('files').innerHTML = '';
-//   renderDirectories(currentDir); // Renderiza el contenido del directorio actual
-// }
-
-function goToDirectory(event) {
-  // 1. Prevenir comportamiento default y obtener directorio clickeado
-  event.preventDefault();
-  const directoryName = event.target.textContent;
-  const pointedDir = fileManager.findNodeByName(root, directoryName);
-
-  // 2. Limpiar breadcrumb manteniendo solo el root
+function updateBreadcrumb(node) {
   const directoriesList = document.getElementById('directories');
-  while (directoriesList.children.length > 1) {
-    directoriesList.removeChild(directoriesList.lastChild);
-  }
+  directoriesList.innerHTML = '';
 
-  // 3. Si no es root, agregar el nuevo directorio al breadcrumb
-  if (directoryName !== 'root') {
-    const newCrumb = document.createElement('li');
-    newCrumb.id = '2'; // Asignar ID adecuado (deberías gestionar esto dinámicamente)
-    newCrumb.innerHTML = `<strong onclick="goToDirectory(event)">${directoryName}</strong>`;
-    directoriesList.appendChild(newCrumb);
-  }
+  const path = getPath(root, node);
 
-  // 4. Renderizar archivos
-  document.getElementById('files').innerHTML = '';
-  renderDirectories(pointedDir);
+  path.forEach((dir, index) => {
+    const li = document.createElement('li');
+    li.id = `${index + 1}`;
+    li.innerHTML = `<strong style="cursor:pointer" onclick="goToDirectoryByPath(${index})">${dir.name}</strong>`;
+    directoriesList.appendChild(li);
+  });
 }
+
+function getPath(rootNode, targetNode) {
+  const path = [];
+
+  function dfs(node, target, currPath) {
+    currPath.push(node);
+    if (node === target) {
+      path.push(...currPath);
+      return true;
+    }
+    if (node.isDirectory) {
+      for (const child of node.children) {
+        if (dfs(child, target, currPath.slice())) return true;
+      }
+    }
+    return false;
+  }
+
+  dfs(rootNode, targetNode, []);
+  return path;
+}
+
+function findParent(node, target) {
+  if (node.isDirectory) {
+    for (const child of node.children) {
+      if (child === target) {
+        return node;
+      }
+      const found = findParent(child, target);
+      if (found) return found;
+    }
+  }
+  return null;
+}
+
+function goToDirectoryByPath(index) {
+  const path = getPath(root, currentDir);
+  const targetDir = path[index];
+  if (targetDir) {
+    renderDirectories(targetDir);
+  }
+}
+
+// --- Opciones para integración con terminal ---
+window.getFileManagerRootContents = function () {
+  return fileManager.getChildren(fileManager.root).map(child => ({
+    name: child.name,
+    isDirectory: child.isDirectory
+  }));
+};
+
+// --- Funciones CRUD para el gestor ---
+
+window.createFile = function (name, content = '') {
+  if (!name) return;
+  fileManager.addFileOrDirectory(currentDir, name, false, content);
+  renderDirectories(currentDir);
+};
+
+window.createDir = function (name) {
+  if (!name) return;
+  fileManager.addFileOrDirectory(currentDir, name, true);
+  renderDirectories(currentDir);
+};
+
+window.removeFileOrDir = function (name) {
+  if (!name) return;
+  fileManager.deleteFileOrDirectory(currentDir, name);
+  renderDirectories(currentDir);
+};
