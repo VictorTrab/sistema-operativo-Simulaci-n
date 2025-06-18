@@ -270,3 +270,22 @@
         .restore-btn.show {
             display: block;
         }
+
+
+        /* iconos */
+.icono-escritorio {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  z-index: 100;
+  cursor: grab;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icono-escritorio img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

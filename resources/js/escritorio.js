@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
         launchApp('video');
     });
 
-    document.querySelector('.gestor_tarea').addEventListener('click', function () {
+    document.querySelector('.tasks').addEventListener('click', function () {
         console.log("Gestor de tareas");
         launchApp('tasks');
     });
@@ -125,6 +125,78 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("Terminal");
         launchApp('terminal');
     });
+let iconoArrastrado = null;
+
+// PREPARAR DRAG desde menú o barra
+function prepararArrastrables(selector) {
+    document.querySelectorAll(selector).forEach(btn => {
+        const img = btn.querySelector('img');
+        if (!img) return;
+
+        img.setAttribute('draggable', true);
+        img.addEventListener('dragstart', (e) => {
+            // Clonamos solo el <img>
+            const nuevoIcono = document.createElement('div');
+            nuevoIcono.classList.add('icono-escritorio');
+            const clon = img.cloneNode(true);
+            nuevoIcono.appendChild(clon);
+            nuevoIcono.setAttribute('draggable', true);
+
+            // Identificamos la app usando clases
+        const claseApp = Array.from(btn.classList).find(c => apps[c]);
+
+        nuevoIcono.dataset.app = btn.dataset.app || claseApp;
+
+
+            iconoArrastrado = nuevoIcono;
+        });
+    });
+}
+
+prepararArrastrables('.button-barra-tareas');
+prepararArrastrables('.app-launch');
+
+const escritorio = document.querySelector('.bg-cover');
+
+// Permitir colocar íconos en el escritorio
+escritorio.addEventListener('dragover', (e) => e.preventDefault());
+
+escritorio.addEventListener('drop', (e) => {
+    e.preventDefault();
+    if (iconoArrastrado) {
+        const appKey = iconoArrastrado.dataset.app;
+
+        iconoArrastrado.style.position = 'absolute';
+        iconoArrastrado.style.left = `${e.clientX}px`;
+        iconoArrastrado.style.top = `${e.clientY}px`;
+        iconoArrastrado.classList.add('icono-escritorio');
+        iconoArrastrado.setAttribute('draggable', true);
+
+        // Hacer icono movible posteriormente
+        iconoArrastrado.addEventListener('dragstart', function () {
+            this.classList.add('dragging');
+        });
+
+        iconoArrastrado.addEventListener('dragend', function (ev) {
+            this.classList.remove('dragging');
+            this.style.left = `${ev.clientX}px`;
+            this.style.top = `${ev.clientY}px`;
+        });
+
+        // Lanzar app al hacer clic
+        iconoArrastrado.addEventListener('click', function () {
+            if (apps[appKey]) {
+                launchApp(appKey);
+            } else {
+                alert("App no encontrada: " + appKey);
+            }
+        });
+
+        escritorio.appendChild(iconoArrastrado);
+        iconoArrastrado = null;
+    }
+});
+
 
     // Otros eventos
     document.querySelector('#calendar').addEventListener('click', function () {
@@ -250,4 +322,32 @@ document.addEventListener("DOMContentLoaded", function () {
     createWidget('weather');
     createWidget('news');
     createWidget('performance');
+
+    // Menú contextual con clic derecho
+document.querySelector('.bg-cover').addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+    const menu = document.getElementById('contextMenuEscritorio');
+    menu.classList.remove('hidden');
+    menu.style.left = `${e.pageX}px`;
+    menu.style.top = `${e.pageY}px`;
+});
+
+// Ocultar menú al hacer clic izquierdo
+document.addEventListener('click', () => {
+    document.getElementById('contextMenuEscritorio').classList.add('hidden');
+});
+
+// Ver propiedades
+function verPropiedades() {
+    const modal = document.getElementById('modalPropiedades');
+    modal.classList.remove('hidden');
+    document.getElementById('resolucion').textContent = `${window.innerWidth} x ${window.innerHeight}`;
+    document.getElementById('colorFondo').textContent = getComputedStyle(document.querySelector('.bg-cover')).backgroundImage;
+    document.getElementById('horaPropiedad').textContent = new Date().toLocaleTimeString();
+}
+
+function cerrarPropiedades() {
+    document.getElementById('modalPropiedades').classList.add('hidden');
+}
+
 });
