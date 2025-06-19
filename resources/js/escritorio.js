@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
     setInterval(mostrarHora, 1000);
+    let iconoSeleccionado = null;
 
     // Diccionario de apps
     const apps = {
@@ -160,79 +161,200 @@ const escritorio = document.querySelector('.bg-cover');
 
 // Permitir colocar íconos en el escritorio
 escritorio.addEventListener('dragover', (e) => e.preventDefault());
-
 escritorio.addEventListener('drop', (e) => {
     e.preventDefault();
-    if (iconoArrastrado) {
-        const appKey = iconoArrastrado.dataset.app;
 
-        iconoArrastrado.style.position = 'absolute';
-        iconoArrastrado.style.left = `${e.clientX}px`;
-        iconoArrastrado.style.top = `${e.clientY}px`;
-        iconoArrastrado.classList.add('icono-escritorio');
-        iconoArrastrado.setAttribute('draggable', true);
+    if (!iconoArrastrado) return;
 
-        // Hacer icono movible posteriormente
-        iconoArrastrado.addEventListener('dragstart', function () {
-            this.classList.add('dragging');
-        });
+    const esNuevo = !iconoArrastrado.parentElement || !iconoArrastrado.parentElement.classList.contains('bg-cover');
 
-        iconoArrastrado.addEventListener('dragend', function (ev) {
-            this.classList.remove('dragging');
-            const escritorioRect = escritorio.getBoundingClientRect();
-            this.style.left = `${ev.clientX - escritorioRect.left - this.offsetWidth / 2}px`;
-            this.style.top = `${ev.clientY - escritorioRect.top - this.offsetHeight / 2}px`;
-        });
+    const posX = e.clientX;
+    const posY = e.clientY;
+    const margen = 90;
 
-        // Lanzar app al hacer clic
-        iconoArrastrado.addEventListener('click', function () {
-            if (apps[appKey]) {
-                launchApp(appKey);
-            } else {
-                alert("App no encontrada: " + appKey);
-            }
-        });
+    const escritorioRect = escritorio.getBoundingClientRect();
+    const barraSuperior = document.querySelector('.barra-superior');
+    const barraTareas = document.querySelector('.barra-tareas');
+    const supRect = barraSuperior.getBoundingClientRect();
+    const infRect = barraTareas.getBoundingClientRect();
 
-        escritorio.appendChild(iconoArrastrado);
-        iconoArrastrado = null;
+    function enZonaProhibida(x, y) {
+        const dentroSuperior = y + escritorioRect.top < supRect.bottom;
+        const dentroInferior = y + escritorioRect.top + iconoArrastrado.offsetHeight > infRect.top;
+        return dentroSuperior || dentroInferior;
     }
+
+    // Bloquear si está sobre zona prohibida
+    if (enZonaProhibida(posX, posY)) {
+        // alert("No puedes soltar el ícono sobre la barra superior o inferior.");
+        iconoArrastrado = null;
+        return;
+    }
+
+    // Bloquear si hay colisión cercana
+    const iconos = escritorio.querySelectorAll('.icono-escritorio');
+    for (let icono of iconos) {
+        const rect = icono.getBoundingClientRect();
+        const iconWidth = icono.offsetWidth;
+        const iconHeight = icono.offsetHeight;
+
+        if (
+            posX > rect.left - iconWidth / 2 &&
+            posX < rect.right + iconWidth / 2 &&
+            posY > rect.top - iconHeight / 2 &&
+            posY < rect.bottom + iconHeight / 2
+        ) {
+            iconoArrastrado = null;
+            return;
+        }
+    }
+
+    const appKey = iconoArrastrado.dataset.app;
+
+    // Posicionar y configurar
+    iconoArrastrado.style.position = 'absolute';
+    iconoArrastrado.style.left = `${posX}px`;
+    iconoArrastrado.style.top = `${posY}px`;
+    iconoArrastrado.classList.add('icono-escritorio');
+    iconoArrastrado.setAttribute('draggable', true);
+
+    // Hacerlo movible después
+    iconoArrastrado.addEventListener('dragstart', function () {
+        this.classList.add('dragging');
+        iconoArrastrado = this;
+    });
+
+    iconoArrastrado.addEventListener('dragend', function (ev) {
+        this.classList.remove('dragging');
+
+        const newLeft = ev.clientX - escritorioRect.left - this.offsetWidth / 2;
+        const newTop = ev.clientY - escritorioRect.top - this.offsetHeight / 2;
+
+        if (!enZonaProhibida(newLeft, newTop)) {
+            this.style.left = `${newLeft}px`;
+            this.style.top = `${newTop}px`;
+            this.dataset.lastLeft = `${newLeft}px`;
+            this.dataset.lastTop = `${newTop}px`;
+        } else {
+            this.style.left = this.dataset.lastLeft || '0px';
+            this.style.top = this.dataset.lastTop || '0px';
+        }
+    });
+
+iconoArrastrado.onclick = () => {
+    if (apps[appKey]) {
+        launchApp(appKey);
+    }
+};
+
+
+if (esNuevo) {
+    escritorio.appendChild(iconoArrastrado);
+    // Asignar menú contextual al nuevo ícono
+iconoArrastrado.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+    iconoSeleccionado = this;
+    const menu = document.getElementById('contextMenuEscritorio');
+    menu.style.top = `${e.clientY}px`;
+    menu.style.left = `${e.clientX}px`;
+    menu.classList.remove('hidden');
+});
+
+}
+
+
+
+    // Activar arrastrado
+    function habilitarArrastre(icono) {
+        icono.addEventListener('dragstart', function (e) {
+            iconoArrastrado = this;
+            e.dataTransfer.setData('text/plain', '');
+        });
+    }
+
+    habilitarArrastre(iconoArrastrado);
+    iconoArrastrado = null;
 });
 
 
-    // Otros eventos
-    document.querySelector('#calendar').addEventListener('click', function () {
-        let calendario = document.querySelector('.calendario');
-        calendario.classList.remove('hidden');
+// aqui
+
+// Ocultar iconos
+function ocultarIconosSuperpuestos() {
+    const menuRect = menuInicio.getBoundingClientRect();
+    document.querySelectorAll('.icono-escritorio').forEach(icono => {
+        const iconRect = icono.getBoundingClientRect();
+        const seSuperpone =
+            iconRect.right > menuRect.left &&
+            iconRect.left < menuRect.right &&
+            iconRect.bottom > menuRect.top &&
+            iconRect.top < menuRect.bottom;
+
+        icono.style.opacity = seSuperpone ? '0' : '1';
+        icono.style.pointerEvents = seSuperpone ? 'none' : 'auto';
     });
+}
 
-    document.querySelector('.cerrarSesion').addEventListener('click', function () {
-        console.log("Cerrando sesión");
-        localStorage.removeItem('fullscreen');
-        window.location.href = "/index.html";
+function restaurarIconos() {
+    document.querySelectorAll('.icono-escritorio').forEach(icono => {
+        icono.style.opacity = '1';
+        icono.style.pointerEvents = 'auto';
     });
+}
 
-    // Script para mostrar/ocultar el menú Inicio
-    const botonInicio = document.getElementById('boton-inicio');
-    const menuInicio = document.getElementById('menu-inicio');
+const botonInicio = document.getElementById('boton-inicio');
+const menuInicio = document.getElementById('menu-inicio');
 
-    botonInicio.addEventListener('click', function (e) {
-        e.stopPropagation();
-        menuInicio.classList.toggle('show');
+botonInicio.addEventListener('click', function (e) {
+    e.stopPropagation();
 
+    const mostrarMenu = !menuInicio.classList.contains('show');
+
+    if (mostrarMenu) {
+        menuInicio.classList.add('show');
+        menuInicio.classList.remove('hidden');
+        menuInicio.style.zIndex = '99999';
+        ocultarIconosSuperpuestos();
+    } else {
+        menuInicio.classList.remove('show');
+        menuInicio.classList.add('hidden');
+        menuInicio.style.zIndex = '100';
+        restaurarIconos();
+    }
+});
+
+// Cerrar el menú al hacer clic fuera
+document.addEventListener('click', function (e) {
+    if (!menuInicio.contains(e.target) && !botonInicio.contains(e.target)) {
         if (menuInicio.classList.contains('show')) {
-            menuInicio.style.zIndex = '200'; // eleva el menú
-        } else {
-        menuInicio.style.zIndex = '100'; // lo baja cuando se oculta
-        }
-    });
-
-
-    document.addEventListener('click', function (e) {
-        if (!menuInicio.contains(e.target) && !botonInicio.contains(e.target)) {
             menuInicio.classList.remove('show');
-        menuInicio.style.zIndex = '100'; // lo bajamos aquí también
+            menuInicio.classList.add('hidden');
+            menuInicio.style.zIndex = '100';
+            restaurarIconos();
         }
-    });
+    }
+
+});
+
+    // Otros eventos
+const btnCalendario = document.querySelector('#calendar');
+const calendario = document.querySelector('.calendario');
+
+// Mostrar calendario al hacer clic en el ícono
+btnCalendario.addEventListener('click', function (e) {
+    e.stopPropagation(); // evita que el document.click lo cierre de inmediato
+    calendario.classList.remove('hidden');
+    calendario.style.zIndex = '99998';
+});
+
+// Ocultar calendario al hacer clic fuera
+document.addEventListener('click', function (e) {
+    if (!calendario.contains(e.target) && !btnCalendario.contains(e.target)) {
+        calendario.classList.add('hidden');
+        calendario.style.zIndex = 'auto'; // opcional: resetea el z-index
+    }
+});
+
 
 
     // Apps desde el menú Inicio
@@ -359,5 +481,18 @@ function verPropiedades() {
 function cerrarPropiedades() {
     document.getElementById('modalPropiedades').classList.add('hidden');
 }
+
+// eliminar 
+function eliminarIcono() {
+    if (iconoSeleccionado) {
+        iconoSeleccionado.remove();
+        iconoSeleccionado = null;
+    }
+    document.getElementById('contextMenuEscritorio').classList.add('hidden');
+}
+
+window.eliminarIcono = eliminarIcono;
+window.verPropiedades = verPropiedades;
+
 
 });

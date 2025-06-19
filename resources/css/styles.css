@@ -1685,10 +1685,10 @@ video {
 
 /* iconos */
 .icono-escritorio {
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   position: absolute;
-  z-index: 5;
+  z-index: 100;
   cursor: grab;
   display: flex;
   justify-content: center;
@@ -1701,3 +1701,11 @@ video {
   object-fit: contain;
 }
 
+.menu-activo .icono-escritorio {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+#contextMenuEscritorio li{
+  cursor:context-menu;
+}
