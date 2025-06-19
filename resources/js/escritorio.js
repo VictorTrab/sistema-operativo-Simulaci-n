@@ -179,8 +179,9 @@ escritorio.addEventListener('drop', (e) => {
 
         iconoArrastrado.addEventListener('dragend', function (ev) {
             this.classList.remove('dragging');
-            this.style.left = `${ev.clientX}px`;
-            this.style.top = `${ev.clientY}px`;
+            const escritorioRect = escritorio.getBoundingClientRect();
+            this.style.left = `${ev.clientX - escritorioRect.left - this.offsetWidth / 2}px`;
+            this.style.top = `${ev.clientY - escritorioRect.top - this.offsetHeight / 2}px`;
         });
 
         // Lanzar app al hacer clic
@@ -214,16 +215,25 @@ escritorio.addEventListener('drop', (e) => {
     const botonInicio = document.getElementById('boton-inicio');
     const menuInicio = document.getElementById('menu-inicio');
 
-    botonInicio.addEventListener('click', function(e) {
+    botonInicio.addEventListener('click', function (e) {
         e.stopPropagation();
         menuInicio.classList.toggle('show');
-    });
 
-    document.addEventListener('click', function(e) {
-        if (!menuInicio.contains(e.target) && !botonInicio.contains(e.target)) {
-            menuInicio.classList.remove('show');
+        if (menuInicio.classList.contains('show')) {
+            menuInicio.style.zIndex = '200'; // eleva el menú
+        } else {
+        menuInicio.style.zIndex = '100'; // lo baja cuando se oculta
         }
     });
+
+
+    document.addEventListener('click', function (e) {
+        if (!menuInicio.contains(e.target) && !botonInicio.contains(e.target)) {
+            menuInicio.classList.remove('show');
+        menuInicio.style.zIndex = '100'; // lo bajamos aquí también
+        }
+    });
+
 
     // Apps desde el menú Inicio
     document.querySelectorAll('.app-launch').forEach(link => {
