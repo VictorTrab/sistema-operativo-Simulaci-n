@@ -14,6 +14,81 @@
     <link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css">
 </head>
+<style>
+/* Modal base */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 1rem;
+}
+
+.modal-overlay.mostrar {
+  display: flex !important;
+}
+
+.modal-contenido {
+  max-width: 420px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 24px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border: 1px solid #ccc;
+  font-family: sans-serif;
+  background-color: #ffffff;
+  color: #1a1a1a;
+  transition: all 0.3s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  .modal-contenido {
+    background-color: #1f1f1f;
+    color: #f5f5f5;
+    border-color: #444;
+  }
+}
+
+.modal-contenido .acciones {
+  text-align: right;
+  margin-top: 20px;
+}
+
+.modal-contenido button {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.modal-contenido button:hover {
+  background-color: #1e4ed8;
+}
+
+.valor {
+  font-family: monospace;
+  word-break: break-word;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+
+</style>
+
+
+
+
+
 <body>
     <main>
             <div class="bg-cover bg-center h-screen relative overflow-hidden"  style="background-image: url('/resources/assets/images/Fondo1.png');">
@@ -380,27 +455,32 @@
             }
             });
             </script>
-    </main>
-    <!-- Menú contextual tipo Windows -->
+                <!-- Menú contextual tipo Windows -->
 <ul id="contextMenuEscritorio" class="hidden fixed bg-gray-800 text-white rounded shadow-lg z-50 p-2" style="min-width: 180px;">
   <!-- <li class="px-4 py-2 hover:bg-gray-700 cursor-pointer" onclick="verPropiedades()">🧾 Ver propiedades</li> -->
-  <li onclick="verPropiedades()">Ver propiedades</li>
+  <li onclick="window.verPropiedades()">Ver propiedades</li>
   <li onclick="eliminarIcono()">Eliminar ícono</li>
+  <li onclick="actualizarEscritorio()">Actualizar escritorio</li>
 </ul>
 
+
 <!-- Modal de propiedades -->
-<div id="modalPropiedades" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-  <div class="bg-white text-black rounded-lg p-6 w-96 shadow-xl">
-    <h2 class="text-xl font-bold mb-4">Propiedades del Escritorio</h2>
-    <p>Resolución: <span id="resolucion"></span></p>
-    <p>Color de fondo: <span id="colorFondo"></span></p>
-    <p>Hora actual: <span id="horaPropiedad"></span></p>
-    <div class="text-right mt-4">
-      <button onclick="cerrarPropiedades()" class="bg-blue-600 text-white px-4 py-2 rounded">Cerrar</button>
+<div id="modalPropiedades" class="modal-overlay">
+  <div class="modal-contenido">
+    <h2>🖥️ Propiedades del Escritorio</h2>
+    <p>📐 Resolución: <span id="resolucion" class="valor"></span></p>
+    <p>🎨 Fondo:</p>
+    <img id="previewFondo" src="" alt="Fondo actual" style="max-width: 100%; border-radius: 8px; margin: 10px 0;">
+    <p>⏰ Hora: <span id="horaPropiedad" class="valor"></span></p>
+    <div class="acciones">
+      <button onclick="cerrarPropiedades()">Cerrar</button>
     </div>
   </div>
 </div>
 
+
+
+    </main>
         <script src="/resources/js/index.js"></script>
         <script src="/resources/js/imagenes.js"></script>
         <script src="/resources/js/template.js"></script>

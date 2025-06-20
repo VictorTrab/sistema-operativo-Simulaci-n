@@ -469,18 +469,42 @@ document.addEventListener('click', () => {
     document.getElementById('contextMenuEscritorio').classList.add('hidden');
 });
 
-// Ver propiedades
-function verPropiedades() {
-    const modal = document.getElementById('modalPropiedades');
-    modal.classList.remove('hidden');
-    document.getElementById('resolucion').textContent = `${window.innerWidth} x ${window.innerHeight}`;
-    document.getElementById('colorFondo').textContent = getComputedStyle(document.querySelector('.bg-cover')).backgroundImage;
-    document.getElementById('horaPropiedad').textContent = new Date().toLocaleTimeString();
+if (localStorage.getItem('activarFullscreen') === '1') {
+    localStorage.removeItem('activarFullscreen'); // limpiar la marca
+    document.documentElement.requestFullscreen().catch(err => {
+        console.warn("No se pudo activar fullscreen:", err);
+    });
 }
 
-function cerrarPropiedades() {
-    document.getElementById('modalPropiedades').classList.add('hidden');
+function verPropiedades() {
+  const modal = document.getElementById('modalPropiedades');
+  modal.classList.add('mostrar');
+
+  const resolucionEl = document.getElementById('resolucion');
+  const horaEl = document.getElementById('horaPropiedad');
+  const previewImg = document.getElementById('previewFondo');
+
+  const fondoUrl = localStorage.getItem('wallpaper');
+
+  if (resolucionEl && horaEl && previewImg) {
+    resolucionEl.textContent = `${window.innerWidth} x ${window.innerHeight}`;
+    horaEl.textContent = new Date().toLocaleTimeString();
+
+    if (fondoUrl) {
+      previewImg.src = fondoUrl;
+      previewImg.style.display = "block";
+    } else {
+      previewImg.style.display = "none";
+    }
+  }
 }
+
+
+function cerrarPropiedades() {
+  document.getElementById('modalPropiedades').classList.remove('mostrar');
+}
+
+
 
 // eliminar 
 function eliminarIcono() {
@@ -490,9 +514,16 @@ function eliminarIcono() {
     }
     document.getElementById('contextMenuEscritorio').classList.add('hidden');
 }
+function actualizarEscritorio() {
+localStorage.setItem('activarFullscreen', '1');
+location.reload();
+
+}
+window.actualizarEscritorio = actualizarEscritorio;
+
 
 window.eliminarIcono = eliminarIcono;
 window.verPropiedades = verPropiedades;
-
+window.cerrarPropiedades = cerrarPropiedades;
 
 });
