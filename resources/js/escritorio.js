@@ -337,6 +337,11 @@ document.addEventListener('click', function (e) {
 });
 
     // Otros eventos
+
+    document.querySelector('.cerrarSesion').addEventListener('click', function () {
+        console.log("Cerrando sesión");
+        window.location.href = "/index.html";
+    });
 const btnCalendario = document.querySelector('#calendar');
 const calendario = document.querySelector('.calendario');
 
